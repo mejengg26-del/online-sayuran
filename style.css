@@ -1,0 +1,1811 @@
+/* =========================================================
+   TUKANG SAYUR ONLINE
+   CSS LENGKAP + RESPONSIVE HP
+========================================================= */
+
+
+/* =========================
+   RESET
+========================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+body {
+    width: 100%;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f5fff5;
+    color: #333;
+    overflow-x: hidden;
+}
+
+/* Supaya gambar tidak keluar layar */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+header {
+    width: 100%;
+    background: #2e7d32;
+    color: white;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 15px 60px;
+
+    position: sticky;
+    top: 0;
+    z-index: 999;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo img {
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.logo h2 {
+    font-size: 24px;
+    line-height: 1.2;
+}
+
+
+/* =========================
+   NAVBAR
+========================= */
+
+nav {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+nav a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+nav a:hover {
+    color: #ffe082;
+}
+
+
+/* =========================
+   BANNER
+========================= */
+
+.banner {
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    gap: 50px;
+    padding: 70px 40px;
+
+    background: #dcedc8;
+
+    flex-wrap: wrap;
+}
+
+.banner-text {
+    flex: 1;
+    width: 50%;
+    max-width: 600px;
+    min-width: 0;
+}
+
+.banner-text h1 {
+    font-size: 45px;
+    line-height: 1.2;
+
+    color: #2e7d32;
+
+    margin-bottom: 20px;
+
+    overflow-wrap: break-word;
+}
+
+.banner-text p {
+    font-size: 18px;
+    line-height: 32px;
+
+    text-align: justify;
+
+    margin-bottom: 25px;
+
+    overflow-wrap: break-word;
+}
+
+.banner-image {
+    flex: 1;
+    width: 45%;
+    min-width: 0;
+
+    text-align: center;
+}
+
+.banner-image img {
+    width: 100%;
+    max-width: 450px;
+    height: auto;
+
+    object-fit: contain;
+}
+
+
+/* =========================
+   BUTTON UMUM
+========================= */
+
+.btn {
+    display: inline-block;
+
+    background: #2e7d32;
+    color: white;
+
+    text-decoration: none;
+
+    padding: 14px 30px;
+
+    border-radius: 10px;
+
+    transition: 0.3s;
+}
+
+.btn:hover {
+    background: #1b5e20;
+}
+
+
+/* =========================
+   KATEGORI BERANDA
+========================= */
+
+.kategori-home {
+    width: 100%;
+    padding: 60px 20px;
+    text-align: center;
+}
+
+.kategori-home h2 {
+    font-size: 35px;
+    line-height: 1.3;
+
+    color: #2e7d32;
+
+    margin-bottom: 40px;
+
+    overflow-wrap: break-word;
+}
+
+.kategori-list {
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    gap: 30px;
+}
+
+.kategori-card {
+    width: 220px;
+    max-width: 100%;
+
+    background: white;
+
+    border-radius: 15px;
+
+    padding: 20px;
+
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+
+    transition: 0.3s;
+}
+
+.kategori-card:hover {
+    transform: translateY(-10px);
+}
+
+.kategori-card img {
+    width: 140px;
+    height: 140px;
+
+    max-width: 100%;
+
+    object-fit: contain;
+}
+
+.kategori-card h3 {
+    margin-top: 15px;
+
+    color: #2e7d32;
+
+    overflow-wrap: break-word;
+}
+
+
+/* =========================
+   PRODUK TERLARIS
+========================= */
+
+.produk-home {
+    width: 100%;
+
+    padding: 60px 20px;
+
+    background: #f9fff6;
+
+    text-align: center;
+}
+
+.produk-home h2 {
+    font-size: 35px;
+    line-height: 1.3;
+
+    color: #2e7d32;
+
+    margin-bottom: 40px;
+
+    overflow-wrap: break-word;
+}
+
+.produk-list {
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    gap: 30px;
+}
+
+
+/* =========================
+   PRODUK CARD
+========================= */
+
+.produk-card {
+    width: 260px;
+    max-width: 100%;
+
+    background: white;
+
+    border-radius: 15px;
+
+    padding: 20px;
+
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+
+    transition: 0.3s;
+}
+
+.produk-card:hover {
+    transform: translateY(-8px);
+}
+
+.produk-card img {
+    width: 180px;
+    height: 180px;
+
+    max-width: 100%;
+
+    object-fit: contain;
+}
+
+.produk-card h3 {
+    color: #2e7d32;
+
+    margin: 10px 0;
+
+    overflow-wrap: break-word;
+}
+
+.produk-card p {
+    margin: 10px 0;
+
+    color: #666;
+
+    overflow-wrap: break-word;
+}
+
+.produk-card h4 {
+    color: #d32f2f;
+
+    margin: 10px 0 15px;
+
+    font-size: 22px;
+
+    overflow-wrap: break-word;
+}
+
+
+/* =========================
+   TOMBOL PRODUK
+========================= */
+
+.btn-beli {
+    display: block;
+
+    width: 100%;
+
+    text-decoration: none;
+
+    background: #2e7d32;
+    color: white;
+
+    padding: 10px;
+
+    border-radius: 8px;
+
+    transition: 0.3s;
+}
+
+.btn-beli:hover {
+    background: #1b5e20;
+}
+
+.btn-keranjang,
+.btn-checkout {
+    width: 100%;
+
+    padding: 10px;
+
+    margin-top: 10px;
+
+    border: none;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    font-size: 15px;
+
+    font-weight: bold;
+}
+
+.btn-keranjang {
+    background: #2e7d32;
+    color: white;
+}
+
+.btn-keranjang:hover {
+    background: #1b5e20;
+}
+
+.btn-checkout {
+    background: #ff9800;
+    color: white;
+}
+
+.btn-checkout:hover {
+    background: #ef6c00;
+}
+
+
+/* =========================
+   INPUT JUMLAH PRODUK
+========================= */
+
+.produk-card input {
+    width: 70px;
+
+    padding: 8px;
+
+    text-align: center;
+
+    border: 1px solid #ccc;
+
+    border-radius: 6px;
+
+    margin: 10px auto;
+
+    display: block;
+}
+
+
+/* =========================
+   KEUNGGULAN
+========================= */
+
+.keunggulan {
+    width: 100%;
+
+    padding: 60px 20px;
+
+    text-align: center;
+}
+
+.keunggulan h2 {
+    color: #2e7d32;
+
+    font-size: 35px;
+
+    margin-bottom: 40px;
+}
+
+.keunggulan-list {
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    gap: 25px;
+}
+
+.item {
+    width: 250px;
+    max-width: 100%;
+
+    background: white;
+
+    border-radius: 15px;
+
+    padding: 25px;
+
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+}
+
+.item h3 {
+    color: #2e7d32;
+
+    margin-bottom: 15px;
+
+    overflow-wrap: break-word;
+}
+
+.item p {
+    width: 100%;
+
+    text-align: center;
+
+    line-height: 28px;
+
+    overflow-wrap: break-word;
+}
+
+
+/* =========================
+   HALAMAN KATEGORI
+========================= */
+
+.kategori {
+    width: 100%;
+
+    padding: 50px 20px;
+
+    text-align: center;
+}
+
+.kategori h2 {
+    color: #2e7d32;
+
+    margin-bottom: 30px;
+
+    font-size: 32px;
+
+    overflow-wrap: break-word;
+}
+
+.produk {
+    width: 100%;
+
+    display: flex;
+    flex-wrap: wrap;
+
+    justify-content: center;
+
+    gap: 30px;
+}
+
+
+/* =========================
+   LOGIN & REGISTER
+========================= */
+
+.login-container,
+.register-container {
+    width: 100%;
+
+    min-height: 85vh;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    padding: 30px 20px;
+}
+
+.login-box,
+.register-box {
+    width: 420px;
+    max-width: 100%;
+
+    background: white;
+
+    padding: 30px;
+
+    border-radius: 15px;
+
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.login-box h2,
+.register-box h2 {
+    text-align: center;
+
+    color: #2e7d32;
+
+    margin-bottom: 20px;
+
+    overflow-wrap: break-word;
+}
+
+.login-box form,
+.register-box form {
+    display: flex;
+
+    flex-direction: column;
+}
+
+.login-box label,
+.register-box label {
+    margin-top: 10px;
+
+    font-weight: bold;
+
+    overflow-wrap: break-word;
+}
+
+.login-box input,
+.register-box input,
+.login-box select,
+.register-box select,
+.login-box textarea,
+.register-box textarea {
+    width: 100%;
+
+    margin-top: 5px;
+
+    margin-bottom: 15px;
+
+    padding: 10px;
+
+    border-radius: 8px;
+
+    border: 1px solid #ccc;
+
+    font-size: 15px;
+}
+
+.login-box button,
+.register-box button {
+    padding: 12px;
+
+    background: #2e7d32;
+
+    color: white;
+
+    border: none;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+}
+
+.login-box button:hover,
+.register-box button:hover {
+    background: #1b5e20;
+}
+
+
+/* =========================
+   KERANJANG
+========================= */
+
+.keranjang {
+    width: 100%;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: flex-start;
+
+    padding: 50px 20px;
+}
+
+.keranjang-card {
+    width: 900px;
+    max-width: 100%;
+
+    background: #fff;
+
+    border-radius: 15px;
+
+    padding: 30px;
+
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+}
+
+.keranjang-card h2 {
+    text-align: center;
+
+    color: #2e7d32;
+
+    margin-bottom: 30px;
+
+    overflow-wrap: break-word;
+}
+
+#daftarKeranjang {
+    width: 100%;
+
+    margin-top: 20px;
+}
+
+.produk-keranjang {
+    width: 100%;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 20px;
+
+    padding: 20px 0;
+
+    border-bottom: 1px solid #ddd;
+}
+
+.produk-info {
+    display: flex;
+
+    align-items: center;
+
+    gap: 20px;
+
+    min-width: 0;
+}
+
+.produk-info img {
+    width: 90px;
+    height: 90px;
+
+    object-fit: contain;
+
+    flex-shrink: 0;
+}
+
+.produk-detail {
+    min-width: 0;
+}
+
+.produk-detail h3 {
+    color: #2e7d32;
+
+    margin-bottom: 8px;
+
+    overflow-wrap: break-word;
+}
+
+.produk-detail p {
+    color: #666;
+
+    overflow-wrap: break-word;
+}
+
+.qty {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    flex-shrink: 0;
+}
+
+.qty button {
+    width: 35px;
+    height: 35px;
+
+    border: none;
+
+    border-radius: 50%;
+
+    background: #2e7d32;
+
+    color: white;
+
+    cursor: pointer;
+
+    font-size: 18px;
+}
+
+.qty span {
+    font-size: 18px;
+
+    font-weight: bold;
+}
+
+.subtotal {
+    color: #d32f2f;
+
+    font-weight: bold;
+
+    white-space: nowrap;
+}
+
+.btn-hapus {
+    padding: 8px 15px;
+
+    border: none;
+
+    border-radius: 8px;
+
+    background: #e53935;
+
+    color: white;
+
+    cursor: pointer;
+}
+
+.btn-hapus:hover {
+    background: #c62828;
+}
+
+.total {
+    margin-top: 30px;
+
+    text-align: right;
+}
+
+.total h2 {
+    color: #d32f2f;
+
+    margin-bottom: 20px;
+}
+
+.total button {
+    padding: 12px 30px;
+
+    border: none;
+
+    border-radius: 8px;
+
+    background: #2e7d32;
+
+    color: white;
+
+    cursor: pointer;
+}
+
+.total button:hover {
+    background: #1b5e20;
+}
+
+
+/* =========================
+   TENTANG
+========================= */
+
+.tentang-singkat {
+    width: 100%;
+
+    padding: 50px 20px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    text-align: center;
+}
+
+.tentang-singkat h2 {
+    color: #2e7d32;
+
+    font-size: 32px;
+
+    margin-bottom: 20px;
+}
+
+.tentang-singkat p {
+    max-width: 850px;
+
+    width: 100%;
+
+    line-height: 30px;
+
+    color: #555;
+
+    margin-bottom: 15px;
+
+    overflow-wrap: break-word;
+}
+
+
+/* =========================
+   CHECKOUT
+========================= */
+
+.checkout-container {
+    width: 100%;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    padding: 50px 20px;
+}
+
+.checkout-box {
+    width: 800px;
+    max-width: 100%;
+
+    background: #fff;
+
+    padding: 30px;
+
+    border-radius: 15px;
+
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+}
+
+.checkout-box h2 {
+    text-align: center;
+
+    color: #2e7d32;
+
+    margin-bottom: 30px;
+
+    overflow-wrap: break-word;
+}
+
+.checkout-box form {
+    display: flex;
+
+    flex-direction: column;
+}
+
+.checkout-box label {
+    margin-top: 15px;
+
+    margin-bottom: 8px;
+
+    font-weight: bold;
+}
+
+.checkout-box input,
+.checkout-box textarea,
+.checkout-box select {
+    width: 100%;
+
+    padding: 12px;
+
+    border: 1px solid #ccc;
+
+    border-radius: 8px;
+
+    margin-bottom: 15px;
+
+    font-size: 16px;
+}
+
+.checkout-box textarea {
+    resize: none;
+
+    height: 100px;
+}
+
+.checkout-box table {
+    width: 100%;
+
+    border-collapse: collapse;
+
+    margin: 20px 0;
+}
+
+.checkout-box table th,
+.checkout-box table td {
+    border: 1px solid #ddd;
+
+    padding: 12px;
+
+    text-align: center;
+}
+
+.checkout-box table th {
+    background: #2e7d32;
+
+    color: white;
+}
+
+.checkout-box button {
+    width: 220px;
+    max-width: 100%;
+
+    padding: 12px;
+
+    margin: 25px auto 0;
+
+    border: none;
+
+    border-radius: 8px;
+
+    background: #2e7d32;
+
+    color: white;
+
+    font-size: 16px;
+
+    cursor: pointer;
+}
+
+.checkout-box button:hover {
+    background: #1b5e20;
+}
+
+
+/* =========================
+   GALERI
+========================= */
+
+.galeri {
+    width: 100%;
+
+    padding: 50px 20px;
+
+    text-align: center;
+
+    background: #f5fff5;
+}
+
+.galeri h1 {
+    color: #2e7d32;
+
+    margin-bottom: 10px;
+
+    font-size: 35px;
+
+    overflow-wrap: break-word;
+}
+
+.galeri p {
+    color: #555;
+
+    margin-bottom: 30px;
+
+    overflow-wrap: break-word;
+}
+
+.galeri-list {
+    width: 100%;
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    justify-content: center;
+
+    gap: 25px;
+}
+
+.galeri-item {
+    width: 220px;
+    max-width: 100%;
+
+    background: #ffffff;
+
+    border-radius: 15px;
+
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+
+    padding: 15px;
+
+    text-align: center;
+
+    transition: 0.3s;
+}
+
+.galeri-item:hover {
+    transform: translateY(-8px);
+}
+
+.galeri-item img {
+    width: 180px;
+    height: 180px;
+
+    max-width: 100%;
+
+    object-fit: contain;
+
+    display: block;
+
+    margin: 0 auto;
+}
+
+.galeri-item h3 {
+    margin-top: 15px;
+
+    font-size: 20px;
+
+    color: #2e7d32;
+
+    overflow-wrap: break-word;
+}
+
+
+/* =========================
+   STOK
+========================= */
+
+.stok {
+    color: green;
+
+    font-weight: bold;
+
+    margin: 8px 0;
+
+    font-size: 15px;
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+footer {
+    width: 100%;
+
+    background: #2e7d32;
+
+    color: white;
+
+    text-align: center;
+
+    padding: 40px 20px;
+
+    margin-top: 60px;
+}
+
+footer h3 {
+    font-size: 28px;
+
+    margin-bottom: 15px;
+
+    overflow-wrap: break-word;
+}
+
+footer p {
+    font-size: 17px;
+
+    margin: 8px 0;
+
+    line-height: 28px;
+
+    overflow-wrap: break-word;
+}
+
+
+/* =========================================================
+   RESPONSIVE TABLET / HP
+========================================================= */
+
+@media screen and (max-width: 768px) {
+
+    /* =====================
+       BODY
+    ===================== */
+
+    html,
+    body {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: hidden;
+    }
+
+
+    /* =====================
+       HEADER
+    ===================== */
+
+    header {
+        width: 100%;
+
+        padding: 15px 10px;
+
+        flex-direction: column;
+
+        gap: 15px;
+    }
+
+    .logo {
+        width: 100%;
+
+        justify-content: center;
+    }
+
+    .logo img {
+        width: 50px;
+        height: 50px;
+    }
+
+    .logo h2 {
+        font-size: 21px;
+    }
+
+
+    /* =====================
+       NAVBAR
+    ===================== */
+
+    nav {
+        width: 100%;
+
+        justify-content: center;
+
+        flex-wrap: wrap;
+
+        gap: 8px 12px;
+    }
+
+    nav a {
+        font-size: 13px;
+
+        white-space: nowrap;
+    }
+
+
+    /* =====================
+       BANNER
+    ===================== */
+
+    .banner {
+        width: 100%;
+
+        padding: 40px 15px;
+
+        flex-direction: column;
+
+        gap: 25px;
+
+        text-align: center;
+    }
+
+    .banner-text {
+        width: 100%;
+
+        max-width: 100%;
+
+        flex: none;
+    }
+
+    .banner-text h1 {
+        width: 100%;
+
+        font-size: 32px;
+
+        line-height: 1.3;
+
+        text-align: center;
+
+        overflow-wrap: break-word;
+
+        word-break: normal;
+    }
+
+    .banner-text p {
+        width: 100%;
+
+        font-size: 16px;
+
+        line-height: 1.6;
+
+        text-align: center;
+
+        overflow-wrap: break-word;
+    }
+
+    .banner-image {
+        width: 100%;
+
+        flex: none;
+    }
+
+    .banner-image img {
+        width: 100%;
+
+        max-width: 380px;
+
+        height: auto;
+    }
+
+
+    /* =====================
+       SECTION
+    ===================== */
+
+    .kategori-home,
+    .produk-home,
+    .keunggulan,
+    .kategori {
+        width: 100%;
+
+        padding: 40px 15px;
+    }
+
+    .kategori-home h2,
+    .produk-home h2,
+    .keunggulan h2 {
+        font-size: 28px;
+
+        line-height: 1.3;
+    }
+
+
+    /* =====================
+       CARD
+    ===================== */
+
+    .kategori-card,
+    .produk-card,
+    .item,
+    .galeri-item {
+        width: 100%;
+
+        max-width: 280px;
+    }
+
+
+    /* =====================
+       LOGIN
+    ===================== */
+
+    .login-container,
+    .register-container {
+        width: 100%;
+
+        padding: 30px 15px;
+    }
+
+    .login-box,
+    .register-box {
+        width: 100%;
+
+        max-width: 420px;
+
+        padding: 25px 20px;
+    }
+
+
+    /* =====================
+       KERANJANG
+    ===================== */
+
+    .keranjang {
+        width: 100%;
+
+        padding: 30px 15px;
+    }
+
+    .keranjang-card {
+        width: 100%;
+
+        padding: 20px 15px;
+    }
+
+    .produk-keranjang {
+        width: 100%;
+
+        flex-direction: column;
+
+        justify-content: center;
+
+        text-align: center;
+
+        gap: 15px;
+    }
+
+    .produk-info {
+        width: 100%;
+
+        flex-direction: column;
+
+        justify-content: center;
+
+        text-align: center;
+    }
+
+    .produk-detail {
+        width: 100%;
+
+        max-width: 100%;
+    }
+
+    .qty {
+        justify-content: center;
+    }
+
+    .total {
+        text-align: center;
+    }
+
+
+    /* =====================
+       CHECKOUT
+    ===================== */
+
+    .checkout-container {
+        width: 100%;
+
+        padding: 30px 15px;
+    }
+
+    .checkout-box {
+        width: 100%;
+
+        padding: 20px 15px;
+    }
+
+    /* Tabel bisa digeser ke samping,
+       tidak membuat halaman melebar */
+
+    .checkout-box table {
+        display: block;
+
+        width: 100%;
+
+        overflow-x: auto;
+
+        white-space: nowrap;
+    }
+
+
+    /* =====================
+       FOOTER
+    ===================== */
+
+    footer {
+        width: 100%;
+
+        padding: 30px 15px;
+    }
+
+    footer h3 {
+        font-size: 24px;
+    }
+
+    footer p {
+        font-size: 15px;
+
+        line-height: 24px;
+    }
+}
+
+
+/* =========================================================
+   RESPONSIVE HP KECIL
+========================================================= */
+
+@media screen and (max-width: 480px) {
+
+    /* =====================
+       HEADER
+    ===================== */
+
+    header {
+        padding: 12px 8px;
+    }
+
+    .logo img {
+        width: 45px;
+        height: 45px;
+    }
+
+    .logo h2 {
+        font-size: 18px;
+    }
+
+
+    /* =====================
+       NAVBAR
+    ===================== */
+
+    nav {
+        gap: 6px 9px;
+    }
+
+    nav a {
+        font-size: 12px;
+    }
+
+
+    /* =====================
+       BANNER
+    ===================== */
+
+    .banner {
+        padding: 30px 12px;
+
+        gap: 20px;
+    }
+
+    .banner-text h1 {
+        font-size: 27px;
+
+        line-height: 1.3;
+    }
+
+    .banner-text p {
+        font-size: 15px;
+
+        line-height: 1.6;
+    }
+
+    .banner-image img {
+        max-width: 300px;
+    }
+
+
+    /* =====================
+       BUTTON
+    ===================== */
+
+    .btn {
+        padding: 12px 20px;
+
+        font-size: 14px;
+    }
+
+
+    /* =====================
+       JUDUL
+    ===================== */
+
+    .kategori-home h2,
+    .produk-home h2,
+    .keunggulan h2,
+    .kategori h2 {
+        font-size: 25px;
+
+        line-height: 1.3;
+    }
+
+
+    /* =====================
+       CARD
+    ===================== */
+
+    .kategori-card,
+    .produk-card,
+    .item,
+    .galeri-item {
+        width: 100%;
+
+        max-width: 100%;
+    }
+
+    .produk-card img {
+        width: 150px;
+
+        height: 150px;
+    }
+
+    .kategori-card img {
+        width: 120px;
+
+        height: 120px;
+    }
+
+    .galeri-item img {
+        width: 150px;
+
+        height: 150px;
+    }
+
+
+    /* =====================
+       LOGIN
+    ===================== */
+
+    .login-box,
+    .register-box {
+        padding: 20px 15px;
+    }
+
+
+    /* =====================
+       KERANJANG
+    ===================== */
+
+    .keranjang-card {
+        padding: 20px 12px;
+    }
+
+    .produk-info img {
+        width: 75px;
+
+        height: 75px;
+    }
+
+    .subtotal {
+        white-space: normal;
+
+        overflow-wrap: break-word;
+    }
+
+
+    /* =====================
+       CHECKOUT
+    ===================== */
+
+    .checkout-box {
+        padding: 20px 12px;
+    }
+
+    .checkout-box h2 {
+        font-size: 24px;
+    }
+
+    .checkout-box input,
+    .checkout-box textarea,
+    .checkout-box select {
+        font-size: 15px;
+    }
+
+    .checkout-box button {
+        width: 100%;
+    }
+
+
+    /* =====================
+       TENTANG
+    ===================== */
+
+    .tentang-singkat {
+        padding: 40px 15px;
+    }
+
+    .tentang-singkat h2 {
+        font-size: 27px;
+    }
+
+    .tentang-singkat p {
+        font-size: 15px;
+
+        line-height: 1.7;
+
+        text-align: center;
+    }
+
+
+    /* =====================
+       GALERI
+    ===================== */
+
+    .galeri {
+        padding: 40px 15px;
+    }
+
+    .galeri h1 {
+        font-size: 28px;
+    }
+
+
+    /* =====================
+       FOOTER
+    ===================== */
+
+    footer {
+        padding: 30px 12px;
+    }
+
+    footer h3 {
+        font-size: 22px;
+    }
+
+    footer p {
+        font-size: 14px;
+
+        line-height: 24px;
+    }
+}
+/* =====================================================
+   PERBAIKAN LEBAR LAYAR HP
+===================================================== */
+
+html,
+body {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow-x: hidden !important;
+}
+
+header,
+.banner,
+.kategori-home,
+.produk-home,
+.keunggulan,
+.tentang-singkat,
+footer {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+}
+
+.banner-text,
+.banner-image {
+    min-width: 0 !important;
+    max-width: 100% !important;
+}
+
+.banner-text h1,
+.banner-text p {
+    max-width: 100% !important;
+    overflow-wrap: anywhere !important;
+}
+
+
+/* =========================
+   KHUSUS HP
+========================= */
+
+@media screen and (max-width: 768px) {
+
+    header {
+        width: 100% !important;
+        padding: 15px 10px !important;
+    }
+
+    .logo {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    nav {
+        width: 100% !important;
+        max-width: 100% !important;
+        display: flex !important;
+        flex-wrap: wrap !important;
+        justify-content: center !important;
+    }
+
+    .banner {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 35px 15px !important;
+        display: flex !important;
+        flex-direction: column !important;
+    }
+
+    .banner-text {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    .banner-text h1 {
+        width: 100% !important;
+        max-width: 100% !important;
+        font-size: 32px !important;
+        line-height: 1.25 !important;
+        text-align: center !important;
+    }
+
+    .banner-text p {
+        width: 100% !important;
+        max-width: 100% !important;
+        font-size: 16px !important;
+        line-height: 1.6 !important;
+        text-align: center !important;
+    }
+
+    .banner-image {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    .banner-image img {
+        width: 100% !important;
+        max-width: 380px !important;
+        height: auto !important;
+    }
+
+    .kategori-home,
+    .produk-home,
+    .keunggulan,
+    .tentang-singkat {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    .kategori-list,
+    .produk-list,
+    .keunggulan-list {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    footer {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+}
+.hero-search {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: -35px;
+    position: relative;
+    z-index: 5;
+}
+
+.hero-search input {
+    width: 220px;
+    padding: 12px 15px;
+    border: 2px solid #2e7d32;
+    border-radius: 25px;
+    outline: none;
+    font-size: 14px;
+    background: white;
+}
+
+.hero-search input:focus {
+    border-color: #1b5e20;
+}
+
+.hero-search button {
+    padding: 12px 18px;
+    border: none;
+    border-radius: 25px;
+    background: #2e7d32;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.hero-search button:hover {
+    background: #1b5e20;
+}

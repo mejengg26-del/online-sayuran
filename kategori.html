@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kategori - Tukang Sayur Online</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header>
+
+    <div class="logo">
+        <img src="image/logo.jpg" alt="Logo">
+        <h2>Tukang Sayur Online</h2>
+    </div>
+
+    <nav>
+        <a href="index.html">Beranda</a>
+        <a href="kategori.html">Kategori</a>
+        <a href="stook.html">stook</a>
+        <a href="tentang.html">Tentang Kami</a>
+        <a href="keranjang.html">Keranjang</a>
+        <a href="checkout.html">Checkout</a>
+        <a href="login.html">Login</a>
+    </nav>
+
+</header>
+
+<h1 style="text-align:center; margin-top:30px; color:#2e7d32;">
+Kategori Produk
+</h1>
+<!-- ================= SAYURAN DAUN ================= -->
+
+<section class="kategori">
+
+    <h2>🥬 Sayuran Daun</h2>
+
+    <div class="produk">
+
+        <!-- Bayam -->
+        <div class="produk-card">
+
+            <img src="image/bayam.jpg" alt="Bayam">
+
+            <h3>Bayam</h3>
+
+            <p>250 gram / ikat</p>
+
+            <h4>Rp5.000</h4>
+
+         <p id="stok-Bayam" class="stok"></p>
+
+            <input
+                type="number"
+                id="bayam"
+                value="1"
+                min="1">
+
+            <button
+                class="btn-keranjang"
+                onclick="tambahKeranjang('Bayam',5000,'bayam')">
+
+                Tambah ke Keranjang
+
+            </button>
+
+        </div>
+
+        <!-- Kangkung -->
+        <div class="produk-card">
+
+            <img src="image/kangkung.jpg" alt="Kangkung">
+
+            <h3>Kangkung</h3>
+
+            <p>250 gram / ikat</p>
+
+            <h4>Rp4.000</h4>
+
+         <p id="stok-Kangkung" class="stok"></p>
+            <input
+                type="number"
+                id="kangkung"
+                value="1"
+                min="1">
+
+            <button
+                class="btn-keranjang"
+                onclick="tambahKeranjang('Kangkung',4000,'kangkung')">
+
+                Tambah ke Keranjang
+
+            </button>
+
+        </div>
+
+        <!-- Sawi Hijau -->
+        <div class="produk-card">
+
+            <img src="image/sawi.jpg" alt="Sawi Hijau">
+
+            <h3>Sawi Hijau</h3>
+
+            <p>250 gram / ikat</p>
+
+            <h4>Rp6.000</h4>
+
+         <p id="stok-Sawi Hijau" class="stok"></p>
+
+            <input
+                type="number"
+                id="sawi"
+                value="1"
+                min="1">
+
+            <button
+                class="btn-keranjang"
+                onclick="tambahKeranjang('Sawi Hijau',6000,'sawi')">
+
+                Tambah ke Keranjang
+
+            </button>
+
+        </div>
+
+        <!-- Pakcoy -->
+        <div class="produk-card">
+
+            <img src="image/pakcoy.jpg" alt="Pakcoy">
+
+            <h3>Pakcoy</h3>
+
+            <p>250 gram / ikat</p>
+
+            <h4>Rp7.000</h4>
+
+          <p id="stok-Pakcoy" class="stok"></p>
+
+            <input
+                type="number"
+                id="pakcoy"
+                value="1"
+                min="1">
+
+            <button
+                class="btn-keranjang"
+                onclick="tambahKeranjang('Pakcoy',7000,'pakcoy')">
+
+                Tambah ke Keranjang
+
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= SAYURAN BUAH ================= -->
+<!-- ================= SAYURAN BUAH ================= -->
+
+<section class="kategori">
+
+    <h2>🍅 Sayuran Buah</h2>
+
+    <div class="produk">
+
+        <!-- Tomat -->
+        <div class="produk-card">
+
+            <img src="image/tomat.jpg" alt="Tomat">
+
+            <h3>Tomat</h3>
+
+            <p>500 gram</p>
+
+            <h4>Rp8.000</h4>
+
+           <p id="stok-Tomat" class="stok"></p>
+
+            <input
+                type="number"
+                id="tomat"
+                value="1"
+                min="1">
+
+            <button
+                class="btn-keranjang"
+                onclick="tambahKeranjang('Tomat',8000,'tomat')">
+
+                Tambah ke Keranjang
+
+            </button>
+
+        </div>
+
+        <!-- Terong -->
+        <div class="produk-card">
+
+            <img src="image/terong.jpg" alt="Terong">
+
+            <h3>Terong</h3>
+
+            <p>500 gram</p>
+
+            <h4>Rp9.000</h4>
+
+            <p id="stok-Terong" class="stok"></p>
+
+
+
+            <input
+                type="number"
+                id="terong"
+                value="1"
+                min="1">
+
+            <button
+                class="btn-keranjang"
+                onclick="tambahKeranjang('Terong',9000,'terong')">
+
+                Tambah ke Keranjang
+
+            </button>
+
+        </div>
+
+        <!-- Mentimun -->
+        <div class="produk-card">
+
+            <img src="image/mentimun.jpg" alt="Mentimun">
+
+            <h3>Mentimun</h3>
+
+            <p>500 gram</p>
+
+            <h4>Rp8.000</h4>
+
+            <p id="stok-Mentimun" class="stok"></p>
+
+            <input
+                type="number"
+                id="mentimun"
+                value="1"
+                min="1">
+
+            <button
+                class="btn-keranjang"
+                onclick="tambahKeranjang('Mentimun',8000,'mentimun')">
+
+                Tambah ke Keranjang
+
+            </button>
+
+        </div>
+
+        <!-- Labu Siam -->
+        <div class="produk-card">
+
+            <img src="image/labusiam.jpg" alt="Labu Siam">
+
+            <h3>Labu Siam</h3>
+
+            <p>500 gram</p>
+
+            <h4>Rp7.000</h4>
+
+            
+<p id="stok-Labu Siam" class="stok"></p>
+
+
+
+            <input
+                type="number"
+                id="labusiam"
+                value="1"
+                min="1">
+
+            <button
+class="btn-keranjang"
+onclick="tambahKeranjang('Labu Siam',7000,'labusiam')">
+
+Tambah ke Keranjang
+
+</button>
+
+</div>
+
+</div>
+
+</section>
+<!-- ================= UMBIAN ================= -->
+
+<section class="kategori">
+
+    <h2>🥔 Umbian</h2>
+
+    <div class="produk">
+
+        <!-- Wortel -->
+        <div class="produk-card">
+
+            <img src="image/wortel.jpg" alt="Wortel">
+
+            <h3>Wortel</h3>
+
+            <p>500 gram</p>
+
+            <h4>Rp10.000</h4>
+<p id="stok-Wortel" class="stok"></p>
+            <input
+                type="number"
+                id="wortel"
+                value="1"
+                min="1">
+
+            <button
+                class="btn-keranjang"
+                onclick="tambahKeranjang('Wortel',10000,'wortel')">
+
+                Tambah ke Keranjang
+
+            </button>
+
+        </div>
+
+        <!-- Kentang -->
+        <div class="produk-card">
+
+            <img src="image/kentang.jpg" alt="Kentang">
+
+            <h3>Kentang</h3>
+
+            <p>500 gram</p>
+
+            <h4>Rp12.000</h4>
+
+            <p id="stok-Kentang" class="stok"></p>
+            <input
+                type="number"
+                id="kentang"
+                value="1"
+                min="1">
+
+            <button
+                class="btn-keranjang"
+                onclick="tambahKeranjang('Kentang',12000,'kentang')">
+
+                Tambah ke Keranjang
+
+            </button>
+
+        </div>
+
+        <!-- Singkong -->
+        <div class="produk-card">
+
+            <img src="image/singkong.jpg" alt="Singkong">
+
+            <h3>Singkong</h3>
+
+            <p>1 kg</p>
+
+            <h4>Rp8.000</h4>
+            <p id="stok-Singkong" class="stok"></p>
+            <input
+                type="number"
+                id="singkong"
+                value="1"
+                min="1">
+
+            <button
+                class="btn-keranjang"
+                onclick="tambahKeranjang('Singkong',8000,'singkong')">
+
+                Tambah ke Keranjang
+
+            </button>
+
+        </div>
+
+        <!-- Ubi Ungu -->
+        <div class="produk-card">
+
+            <img src="image/ubiungu.jpg" alt="Ubi Ungu">
+
+            <h3>Ubi Ungu</h3>
+
+            <p>1 kg</p>
+
+            <h4>Rp15.000</h4>
+
+            <p id="stok-Ubi Ungu" class="stok"></p>
+            <input
+                type="number"
+                id="ubiungu"
+                value="1"
+                min="1">
+
+            <button
+                class="btn-keranjang"
+                onclick="tambahKeranjang('Ubi Ungu',15000,'ubiungu')">
+
+                Tambah ke Keranjang
+
+            </button>
+        
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ================= BUMBU DAPUR ================= -->
+
+<section class="kategori">
+
+    <h2>🧄 Bumbu Dapur</h2>
+
+    <div class="produk">
+
+        <!-- Bawang Merah -->
+        <div class="produk-card">
+
+            <img src="image/bawangmerah.jpg" alt="Bawang Merah">
+
+            <h3>Bawang Merah</h3>
+
+            <p>500 gram</p>
+
+            <h4>Rp18.000</h4>
+
+           <p id="stok-Bawang Merah" class="stok"></p>
+
+            <input
+                type="number"
+                id="bawangmerah"
+                value="1"
+                min="1">
+
+            <button
+                class="btn-keranjang"
+                onclick="tambahKeranjang('Bawang Merah',18000,'bawangmerah')">
+
+                Tambah ke Keranjang
+
+            </button>
+
+        </div>
+
+        <!-- Bawang Putih -->
+        <div class="produk-card">
+
+            <img src="image/bawangputih.jpg" alt="Bawang Putih">
+
+            <h3>Bawang Putih</h3>
+
+            <p>500 gram</p>
+
+            <h4>Rp22.000</h4>
+
+           <p id="stok-Bawang Putih" class="stok"></p>
+
+
+
+            <input
+                type="number"
+                id="bawangputih"
+                value="1"
+                min="1">
+
+            <button
+                class="btn-keranjang"
+                onclick="tambahKeranjang('Bawang Putih',22000,'bawangputih')">
+
+                Tambah ke Keranjang
+
+            </button>
+
+        </div>
+
+        <!-- Cabai Merah -->
+        <div class="produk-card">
+
+            <img src="image/cabai.jpg" alt="Cabai Merah">
+
+            <h3>Cabai Merah</h3>
+
+            <p>250 gram</p>
+
+            <h4>Rp20.000</h4>
+
+          <p id="stok-Cabai Merah" class="stok"></p>
+            <input
+                type="number"
+                id="cabai"
+                value="1"
+                min="1">
+
+            <button
+                class="btn-keranjang"
+                onclick="tambahKeranjang('Cabai Merah',20000,'cabai')">
+
+                Tambah ke Keranjang
+
+            </button>
+
+        </div>
+
+        <!-- Cabai Rawit -->
+        <div class="produk-card">
+
+            <img src="image/cabairawit.jpg" alt="Cabai Rawit">
+
+            <h3>Cabai Rawit</h3>
+
+            <p>250 gram</p>
+
+            <h4>Rp25.000</h4>
+
+            <p id="stok-Cabai Rawit" class="stok"></p>
+
+            <input
+                type="number"
+                id="cabairawit"
+                value="1"
+                min="1">
+
+            <button
+                class="btn-keranjang"
+                onclick="tambahKeranjang('Cabai Rawit',25000,'cabairawit')">
+
+                Tambah ke Keranjang
+
+            </button>
+
+        </div>
+
+        <!-- Jahe -->
+        <div class="produk-card">
+
+            <img src="image/jahe.jpg" alt="Jahe">
+
+            <h3>Jahe</h3>
+
+            <p>250 gram</p>
+
+            <h4>Rp12.000</h4>
+
+           <p id="stok-Jahe" class="stok"></p>
+
+            <input
+                type="number"
+                id="jahe"
+                value="1"
+                min="1">
+
+            <button
+                class="btn-keranjang"
+                onclick="tambahKeranjang('Jahe',12000,'jahe')">
+
+                Tambah ke Keranjang
+
+            </button>
+
+        </div>
+
+        <!-- Kunyit -->
+        <div class="produk-card">
+
+            <img src="image/kunyit.jpg" alt="Kunyit">
+
+            <h3>Kunyit</h3>
+
+            <p>250 gram</p>
+
+            <h4>Rp10.000</h4>
+
+            <p id="stok-Kunyit" class="stok"></p>
+
+            <input
+                type="number"
+                id="kunyit"
+                value="1"
+                min="1">
+
+            <button
+                class="btn-keranjang"
+                onclick="tambahKeranjang('Kunyit',10000,'kunyit')">
+
+                Tambah ke Keranjang
+
+            </button>
+
+        </div>
+
+        <!-- Lengkuas -->
+        <div class="produk-card">
+
+            <img src="image/lengkuas.jpg" alt="Lengkuas">
+
+            <h3>Lengkuas</h3>
+
+            <p>250 gram</p>
+
+            <h4>Rp11.000</h4>
+
+            <p id="stok-Lengkuas" class="stok"></p>
+
+            <input
+                type="number"
+                id="lengkuas"
+                value="1"
+                min="1">
+
+            <button
+                class="btn-keranjang"
+                onclick="tambahKeranjang('Lengkuas',11000,'lengkuas')">
+
+                Tambah ke Keranjang
+
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+<footer>
+
+    <h3>Tukang Sayur Online</h3>
+
+    <p>&copy; 2026 Tukang Sayur Online. All Rights Reserved.</p>
+
+</footer>
+
+<script>
+
+let dataStok = JSON.parse(localStorage.getItem("stok"));
+
+if(dataStok){
+
+    for(let nama in dataStok){
+
+        let elemen = document.getElementById("stok-" + nama);
+
+        if(elemen){
+
+            elemen.innerHTML = "Stok : " + dataStok[nama];
+
+        }
+
+    }
+
+}
+
+</script>
+<script src="script.js"></script>
+
+<script>
+
+// ===============================
+// TAMPILKAN HASIL PENCARIAN
+// DARI BERANDA
+// ===============================
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const parameter =
+        new URLSearchParams(window.location.search);
+
+    const pencarian =
+        parameter.get("search");
+
+    // Kalau tidak ada pencarian,
+    // tampilkan semua produk seperti biasa
+    if (!pencarian) {
+        return;
+    }
+
+    const kataKunci =
+        pencarian.toLowerCase().trim();
+
+    const semuaProduk =
+        document.querySelectorAll(".produk-card");
+
+    let jumlahDitemukan = 0;
+
+    // Cari semua produk di semua kategori
+    semuaProduk.forEach(function (produk) {
+
+        const namaProduk =
+            produk.textContent.toLowerCase();
+
+        if (namaProduk.includes(kataKunci)) {
+
+            produk.style.display = "";
+
+            jumlahDitemukan++;
+
+        } else {
+
+            produk.style.display = "none";
+
+        }
+
+    });
+
+
+    // Sembunyikan kategori yang tidak memiliki
+    // produk sesuai pencarian
+    const semuaKategori =
+        document.querySelectorAll(".kategori");
+
+    semuaKategori.forEach(function (kategori) {
+
+        const produkDiKategori =
+            kategori.querySelectorAll(".produk-card");
+
+        let adaProduk = false;
+
+        produkDiKategori.forEach(function (produk) {
+
+            if (produk.style.display !== "none") {
+
+                adaProduk = true;
+
+            }
+
+        });
+
+        if (adaProduk) {
+
+            kategori.style.display = "";
+
+        } else {
+
+            kategori.style.display = "none";
+
+        }
+
+    });
+
+
+    // Ubah judul halaman
+    const judul =
+        document.querySelector("body > h1");
+
+    if (judul) {
+
+        if (jumlahDitemukan > 0) {
+
+            judul.innerHTML =
+                'Hasil Pencarian: "' +
+                pencarian +
+                '"';
+
+        } else {
+
+            judul.innerHTML =
+                'Produk "' +
+                pencarian +
+                '" Tidak Ditemukan';
+
+        }
+
+    }
+
+});
+
+</script>
+
+</body>
+</html>

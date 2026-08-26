@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Tukang Sayur Online</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header>
+
+    <div class="logo">
+        <img src="image/logo.jpg" alt="Logo">
+        <h2>Tukang Sayur Online</h2>
+    </div>
+
+    <nav>
+        <a href="index.html">Beranda</a>
+        <a href="kategori.html">Kategori</a>
+        <a href="stook.html">stook</a>
+        <a href="tentang.html">Tentang Kami</a>
+        <a href="keranjang.html">Keranjang</a>
+        <a href="checkout.html">Checkout</a>
+        <a href="login.html">Login</a>
+    </nav>
+
+</header>
+
+<div class="checkout-container">
+
+    <div class="checkout-box">
+
+        <h2>🛒 Checkout</h2>
+
+        <form>
+
+            <label>Nama Pelanggan</label>
+            <input type="text" value="Ermi" readonly>
+
+            <label>Nomor HP</label>
+            <input type="text" value="081234567890" readonly>
+
+            <label>Alamat Pengiriman</label>
+            <textarea placeholder="Masukkan alamat lengkap"></textarea>
+
+            <label>Metode Pembayaran</label>
+
+            <select>
+                <option>COD (Bayar di Tempat)</option>
+                <option>Transfer Bank</option>
+                <option>QRIS</option>
+            </select>
+
+            <h3>Ringkasan Pesanan</h3>
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>Produk</th>
+                        <th>Jumlah</th>
+                        <th>Subtotal</th>
+                    </tr>
+                </thead>
+
+                <tbody id="checkoutList">
+
+                </tbody>
+
+                <tfoot>
+                    <tr>
+                        <th colspan="2">Total</th>
+                        <th id="totalCheckout">Rp0</th>
+                    </tr>
+                </tfoot>
+
+            </table>
+
+            <button type="button" onclick="pesanSekarang()">
+                Pesan Sekarang
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+<script>
+
+let keranjang = JSON.parse(localStorage.getItem("keranjang")) || [];
+
+let isi = "";
+let total = 0;
+
+keranjang.forEach(item=>{
+
+    let subtotal = item.harga * item.jumlah;
+
+    total += subtotal;
+
+    isi += `
+    <tr>
+        <td>${item.nama}</td>
+        <td>${item.jumlah} ikat</td>
+        <td>Rp${subtotal.toLocaleString('id-ID')}</td>
+    </tr>
+    `;
+
+});
+
+document.getElementById("checkoutList").innerHTML = isi;
+
+document.getElementById("totalCheckout").innerHTML =
+"Rp" + total.toLocaleString('id-ID');
+
+function pesanSekarang(){
+
+    alert("Pesanan berhasil dibuat!");
+
+    localStorage.removeItem("keranjang");
+
+    window.location.href="index.html";
+
+}
+
+</script>
+
+<script src="script.js"></script>
+
+</body>
+</html>
