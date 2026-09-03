@@ -2,56 +2,32 @@
 <html lang="id">
 
 <head>
-
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Admin - Tukang Sayur Online</title>
 
     <link rel="stylesheet" href="style.css">
-
 </head>
 
 <body>
 
-
-<!-- ================= HEADER ================= -->
-
 <header>
-
     <div class="logo">
-
         <img src="logo.jpg" alt="Logo">
-
         <h2>Tukang Sayur Online</h2>
-
     </div>
 
-
     <nav>
-
         <a href="index.html">Beranda</a>
-
         <a href="kategori.html">Kategori</a>
-
         <a href="stook.html">Stok</a>
-
         <a href="tentang.html">Tentang Kami</a>
-
         <a href="keranjang.html">Keranjang</a>
-
         <a href="checkout.html">Checkout</a>
-
         <a href="admin.html">Admin</a>
-
     </nav>
-
 </header>
 
-
-
-<!-- ================= DASHBOARD ADMIN ================= -->
 
 <section class="admin-container">
 
@@ -61,111 +37,67 @@
 
         <p>Selamat datang di halaman administrasi Tukang Sayur Online.</p>
 
-
         <hr>
 
-
         <!-- RINGKASAN -->
-
         <div class="admin-summary">
 
-
             <div class="summary-card">
-
                 <h3>📦 Pesanan</h3>
-
                 <h2 id="jumlahPesanan">0</h2>
-
                 <p>Total Pesanan</p>
-
             </div>
 
-
             <div class="summary-card">
-
                 <h3>⏳ Menunggu</h3>
-
                 <h2 id="pesananMenunggu">0</h2>
-
                 <p>Pesanan Menunggu</p>
-
             </div>
 
-
             <div class="summary-card">
-
                 <h3>🚚 Diproses</h3>
-
                 <h2 id="pesananDiproses">0</h2>
-
                 <p>Pesanan Diproses</p>
-
             </div>
-
 
             <div class="summary-card">
-
                 <h3>✅ Selesai</h3>
-
                 <h2 id="pesananSelesai">0</h2>
-
                 <p>Pesanan Selesai</p>
-
             </div>
-
 
         </div>
 
 
-
-        <!-- ================= DAFTAR PESANAN ================= -->
+        <!-- DAFTAR PESANAN -->
 
         <h2 class="judul-pesanan">
-
             📋 Daftar Pesanan Pelanggan
-
         </h2>
-
 
         <div class="tabel-container">
 
             <table>
 
                 <thead>
-
                     <tr>
-
                         <th>No</th>
-
                         <th>Nama Pelanggan</th>
-
                         <th>No. HP</th>
-
                         <th>Alamat</th>
-
                         <th>Pesanan</th>
-
                         <th>Total</th>
-
                         <th>Pembayaran</th>
-
                         <th>Status</th>
-
                     </tr>
-
                 </thead>
-
 
                 <tbody id="daftarPesanan">
 
                     <tr>
-
                         <td colspan="8">
-
-                            Belum ada pesanan.
-
+                            Memuat pesanan...
                         </td>
-
                     </tr>
 
                 </tbody>
@@ -174,34 +106,167 @@
 
         </div>
 
-
     </div>
 
 </section>
 
-
-
-<!-- ================= FOOTER ================= -->
 
 <footer>
 
     <h3>🥬 Tukang Sayur Online</h3>
 
     <p>
-
         Belanja Sayur Segar, Mudah, Cepat, dan Terpercaya.
-
     </p>
 
     <p>
-
         &copy; 2026 Tukang Sayur Online
-
     </p>
 
 </footer>
 
 
+<!-- FIREBASE ADMIN -->
+
+<script type="module">
+
+import { collection, onSnapshot }
+from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+
+import { db } from "./firebase-config.js";
+
+
+const daftarPesanan = document.getElementById("daftarPesanan");
+
+const jumlahPesanan = document.getElementById("jumlahPesanan");
+
+const pesananMenunggu = document.getElementById("pesananMenunggu");
+
+const pesananDiproses = document.getElementById("pesananDiproses");
+
+const pesananSelesai = document.getElementById("pesananSelesai");
+
+
+/* ===============================
+   AMBIL DATA PESANAN FIREBASE
+================================ */
+
+onSnapshot(collection(db, "pesanan"), (snapshot) => {
+
+    daftarPesanan.innerHTML = "";
+
+    let total = 0;
+    let menunggu = 0;
+    let diproses = 0;
+    let selesai = 0;
+
+    if (snapshot.empty) {
+
+        daftarPesanan.innerHTML = `
+            <tr>
+                <td colspan="8">
+                    Belum ada pesanan.
+                </td>
+            </tr>
+        `;
+
+        jumlahPesanan.innerText = "0";
+        pesananMenunggu.innerText = "0";
+        pesananDiproses.innerText = "0";
+        pesananSelesai.innerText = "0";
+
+        return;
+    }
+
+
+    snapshot.forEach((doc, index) => {
+
+        const data = doc.data();
+
+        total++;
+
+
+        // Hitung status
+
+        if (data.status === "Menunggu") {
+            menunggu++;
+        }
+
+        if (data.status === "Diproses") {
+            diproses++;
+        }
+
+        if (data.status === "Selesai") {
+            selesai++;
+        }
+
+
+        // Daftar produk
+
+        let daftarProduk = "";
+
+        if (Array.isArray(data.pesanan)) {
+
+            data.pesanan.forEach(item => {
+
+                daftarProduk += `
+                    ${item.nama} (${item.jumlah} ikat)<br>
+                `;
+
+            });
+
+        }
+
+
+        // Tambahkan baris tabel
+
+        daftarPesanan.innerHTML += `
+
+            <tr>
+
+                <td>${index + 1}</td>
+
+                <td>${data.namaPelanggan || "-"}</td>
+
+                <td>${data.nomorHP || "-"}</td>
+
+                <td>${data.alamat || "-"}</td>
+
+                <td>${daftarProduk || "-"}</td>
+
+                <td>
+                    Rp${Number(data.total || 0).toLocaleString("id-ID")}
+                </td>
+
+                <td>${data.metodePembayaran || "-"}</td>
+
+                <td>
+                    <span class="status-pesanan">
+                        ${data.status || "Menunggu"}
+                    </span>
+                </td>
+
+            </tr>
+
+        `;
+
+    });
+
+
+    // Update dashboard
+
+    jumlahPesanan.innerText = total;
+
+    pesananMenunggu.innerText = menunggu;
+
+    pesananDiproses.innerText = diproses;
+
+    pesananSelesai.innerText = selesai;
+
+});
+
+
+</script>
 
 </body>
 
