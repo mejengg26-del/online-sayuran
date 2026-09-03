@@ -29,6 +29,7 @@
 
 </header>
 
+
 <div class="checkout-container">
 
     <div class="checkout-box">
@@ -38,21 +39,33 @@
         <form>
 
             <label>Nama Pelanggan</label>
-<input type="text" placeholder="Masukkan nama lengkap">
+            <input
+                type="text"
+                id="namaPelanggan"
+                placeholder="Masukkan nama lengkap"
+            >
 
-<label>Nomor HP</label>
-<input type="text" placeholder="Masukkan nomor HP">
+            <label>Nomor HP</label>
+            <input
+                type="text"
+                id="nomorHP"
+                placeholder="Masukkan nomor HP"
+            >
 
             <label>Alamat Pengiriman</label>
-            <textarea placeholder="Masukkan alamat lengkap"></textarea>
+            <textarea
+                id="alamat"
+                placeholder="Masukkan alamat lengkap"
+            ></textarea>
 
             <label>Metode Pembayaran</label>
 
-            <select>
+            <select id="metodePembayaran">
                 <option>COD (Bayar di Tempat)</option>
                 <option>Transfer Bank</option>
                 <option>QRIS</option>
             </select>
+
 
             <h3>Ringkasan Pesanan</h3>
 
@@ -67,7 +80,6 @@
                 </thead>
 
                 <tbody id="checkoutList">
-
                 </tbody>
 
                 <tfoot>
@@ -79,6 +91,7 @@
 
             </table>
 
+
             <button type="button" onclick="pesanSekarang()">
                 Pesan Sekarang
             </button>
@@ -89,6 +102,11 @@
 
 </div>
 
+
+<!-- =========================================
+     MENAMPILKAN RINGKASAN PESANAN
+========================================= -->
+
 <script>
 
 let keranjang = JSON.parse(localStorage.getItem("keranjang")) || [];
@@ -96,7 +114,7 @@ let keranjang = JSON.parse(localStorage.getItem("keranjang")) || [];
 let isi = "";
 let total = 0;
 
-keranjang.forEach(item=>{
+keranjang.forEach(item => {
 
     let subtotal = item.harga * item.jumlah;
 
@@ -115,21 +133,120 @@ keranjang.forEach(item=>{
 document.getElementById("checkoutList").innerHTML = isi;
 
 document.getElementById("totalCheckout").innerHTML =
-"Rp" + total.toLocaleString('id-ID');
-
-function pesanSekarang(){
-
-    alert("Pesanan berhasil dibuat!");
-
-    localStorage.removeItem("keranjang");
-
-    window.location.href="index.html";
-
-}
+    "Rp" + total.toLocaleString('id-ID');
 
 </script>
 
+
+<!-- =========================================
+     FIREBASE FIRESTORE
+========================================= -->
+
+<script type="module">
+
+import {
+    collection,
+    addDoc
+} from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+
+import {
+    db
+} from "./firebase-config.js";
+
+
+window.pesanSekarang = async function() {
+
+    // Ambil data pelanggan
+    const nama = document.getElementById("namaPelanggan").value.trim();
+    const hp = document.getElementById("nomorHP").value.trim();
+    const alamat = document.getElementById("alamat").value.trim();
+    const pembayaran =
+        document.getElementById("metodePembayaran").value;
+
+
+    // Cek data pelanggan
+    if (nama === "" || hp === "" || alamat === "") {
+
+        alert("Mohon lengkapi data pelanggan terlebih dahulu.");
+
+        return;
+    }
+
+
+    // Ambil keranjang
+    const keranjang =
+        JSON.parse(localStorage.getItem("keranjang")) || [];
+
+
+    // Cek keranjang
+    if (keranjang.length === 0) {
+
+        alert("Keranjang masih kosong.");
+
+        return;
+    }
+
+
+    // Hitung total
+    let total = 0;
+
+    keranjang.forEach(item => {
+
+        total += item.harga * item.jumlah;
+
+    });
+
+
+    try {
+
+        // Simpan pesanan ke Firebase
+        await addDoc(
+            collection(db, "pesanan"),
+            {
+                namaPelanggan: nama,
+                nomorHP: hp,
+                alamat: alamat,
+                metodePembayaran: pembayaran,
+                pesanan: keranjang,
+                total: total,
+                status: "Menunggu",
+                tanggal: new Date().toISOString()
+            }
+        );
+
+
+        alert("Pesanan berhasil dibuat!");
+
+
+        // Hapus keranjang setelah berhasil
+        localStorage.removeItem("keranjang");
+
+
+        // Kembali ke halaman utama
+        window.location.href = "index.html";
+
+
+    } catch (error) {
+
+        console.error("Error menyimpan pesanan:", error);
+
+        alert(
+            "Pesanan gagal disimpan. Silakan coba lagi."
+        );
+
+    }
+
+};
+
+</script>
+
+
+<!-- =========================================
+     SCRIPT WEBSITE
+========================================= -->
+
 <script src="script.js"></script>
+
 
 </body>
 </html>
