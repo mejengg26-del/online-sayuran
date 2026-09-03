@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Admin - Tukang Sayur Online</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+
+<!-- ================= HEADER ================= -->
+
+<header>
+
+    <div class="logo">
+
+        <img src="logo.jpg" alt="Logo">
+
+        <h2>Tukang Sayur Online</h2>
+
+    </div>
+
+
+    <nav>
+
+        <a href="index.html">Beranda</a>
+
+        <a href="kategori.html">Kategori</a>
+
+        <a href="stook.html">Stok</a>
+
+        <a href="tentang.html">Tentang Kami</a>
+
+        <a href="keranjang.html">Keranjang</a>
+
+        <a href="checkout.html">Checkout</a>
+
+        <a href="admin.html">Admin</a>
+
+    </nav>
+
+</header>
+
+
+
+<!-- ================= DASHBOARD ADMIN ================= -->
+
+<section class="admin-container">
+
+    <div class="admin-box">
+
+        <h1>📋 Dashboard Admin</h1>
+
+        <p>Selamat datang di halaman administrasi Tukang Sayur Online.</p>
+
+
+        <hr>
+
+
+        <!-- RINGKASAN -->
+
+        <div class="admin-summary">
+
+
+            <div class="summary-card">
+
+                <h3>📦 Pesanan</h3>
+
+                <h2 id="jumlahPesanan">0</h2>
+
+                <p>Total Pesanan</p>
+
+            </div>
+
+
+            <div class="summary-card">
+
+                <h3>⏳ Menunggu</h3>
+
+                <h2 id="pesananMenunggu">0</h2>
+
+                <p>Pesanan Menunggu</p>
+
+            </div>
+
+
+            <div class="summary-card">
+
+                <h3>🚚 Diproses</h3>
+
+                <h2 id="pesananDiproses">0</h2>
+
+                <p>Pesanan Diproses</p>
+
+            </div>
+
+
+            <div class="summary-card">
+
+                <h3>✅ Selesai</h3>
+
+                <h2 id="pesananSelesai">0</h2>
+
+                <p>Pesanan Selesai</p>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- ================= DAFTAR PESANAN ================= -->
+
+        <h2 class="judul-pesanan">
+
+            📋 Daftar Pesanan Pelanggan
+
+        </h2>
+
+
+        <div class="tabel-container">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>No</th>
+
+                        <th>Nama Pelanggan</th>
+
+                        <th>No. HP</th>
+
+                        <th>Alamat</th>
+
+                        <th>Pesanan</th>
+
+                        <th>Total</th>
+
+                        <th>Pembayaran</th>
+
+                        <th>Status</th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody id="daftarPesanan">
+
+                    <tr>
+
+                        <td colspan="8">
+
+                            Belum ada pesanan.
+
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+    <h3>🥬 Tukang Sayur Online</h3>
+
+    <p>
+
+        Belanja Sayur Segar, Mudah, Cepat, dan Terpercaya.
+
+    </p>
+
+    <p>
+
+        &copy; 2026 Tukang Sayur Online
+
+    </p>
+
+</footer>
+
+
+
+</body>
+
+</html>
