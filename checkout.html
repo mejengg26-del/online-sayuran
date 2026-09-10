@@ -26,8 +26,8 @@
         <a href="keranjang.html">Keranjang</a>
         <a href="checkout.html">Checkout</a>
         <a href="login.html">Login</a>
-         <a href="admin.html">admin</a>
-        
+        <a href="admin.html">admin</a>
+        <a href="riwayat.html">Riwayat Pesanan</a>
     </nav>
 
 </header>
@@ -127,18 +127,12 @@
 
 
             <button
-    type="button"
-    id="tombolPesan"
->
-    Pesan Sekarang
-</button>
+                type="button"
+                id="tombolPesan"
+            >
+                Pesan Sekarang
+            </button>
 
-<button
-    type="button"
-    id="tombolBatal"
->
-    Batal Pesanan
-</button>
 
         </form>
 
@@ -215,7 +209,6 @@ import {
 import {
     db
 } from "./firebase-config.js";
-
 
 
 /* =========================================
@@ -312,7 +305,7 @@ tombolPesan.addEventListener("click", async function() {
 
 
     /* =========================================
-       SIMPAN KE FIREBASE
+       SIMPAN PESANAN KE FIREBASE
     ========================================= */
 
     try {
@@ -323,7 +316,7 @@ tombolPesan.addEventListener("click", async function() {
             "Menyimpan Pesanan...";
 
 
-        await addDoc(
+        const pesananRef = await addDoc(
             collection(db, "pesanan"),
             {
 
@@ -348,8 +341,68 @@ tombolPesan.addEventListener("click", async function() {
         );
 
 
+
         /* =========================================
-           BERHASIL
+           SIMPAN ID PESANAN TERAKHIR
+        ========================================= */
+
+        localStorage.setItem(
+            "pesananTerakhir",
+            pesananRef.id
+        );
+
+
+
+        /* =========================================
+           KURANGI STOK
+        ========================================= */
+
+        let stok =
+            JSON.parse(
+                localStorage.getItem("stok")
+            ) || {};
+
+
+        keranjang.forEach(item => {
+
+            if (
+                stok[item.nama] !== undefined
+            ) {
+
+                stok[item.nama] -=
+                    item.jumlah;
+
+
+                if (stok[item.nama] < 0) {
+
+                    stok[item.nama] = 0;
+
+                }
+
+            }
+
+        });
+
+
+        localStorage.setItem(
+            "stok",
+            JSON.stringify(stok)
+        );
+
+
+
+        /* =========================================
+           HAPUS KERANJANG
+        ========================================= */
+
+        localStorage.removeItem(
+            "keranjang"
+        );
+
+
+
+        /* =========================================
+           PESANAN BERHASIL
         ========================================= */
 
         alert(
@@ -357,13 +410,13 @@ tombolPesan.addEventListener("click", async function() {
         );
 
 
-        localStorage.removeItem(
-            "keranjang"
-        );
 
+        /* =========================================
+           PINDAH KE RIWAYAT PESANAN
+        ========================================= */
 
         window.location.href =
-            "index.html";
+            "riwayat.html";
 
 
     } catch (error) {
