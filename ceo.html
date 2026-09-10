@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard CEO - Tukang Sayur Online</title>
+
+    <link rel="stylesheet" href="ceo.css">
+
+</head>
+
+<body>
+
+<!-- ================= HEADER ================= -->
+
+<header>
+
+    <div class="logo-area">
+
+        <img src="image/logo.jpg" alt="Logo">
+
+        <div>
+            <h2>Tukang Sayur Online</h2>
+            <p>Dashboard CEO</p>
+        </div>
+
+    </div>
+
+    <button onclick="logoutCEO()" class="logout">
+        Logout
+    </button>
+
+</header>
+
+
+<!-- ================= SIDEBAR ================= -->
+
+<div class="layout">
+
+    <aside>
+
+        <h3>MENU CEO</h3>
+
+        <a href="#dashboard">Dashboard</a>
+
+        <a href="#pesanan">Data Pesanan</a>
+
+        <a href="#produk">Produk Terlaris</a>
+
+        <a href="#pendapatan">Pendapatan</a>
+
+    </aside>
+
+
+    <!-- ================= CONTENT ================= -->
+
+    <main>
+
+        <section id="dashboard">
+
+            <h1>Dashboard CEO</h1>
+
+            <p class="subjudul">
+                Ringkasan perkembangan Tukang Sayur Online
+            </p>
+
+
+            <!-- STATISTIK -->
+
+            <div class="statistik">
+
+                <div class="card-stat">
+
+                    <h3>Total Pesanan</h3>
+
+                    <p id="totalPesanan">
+                        0
+                    </p>
+
+                </div>
+
+
+                <div class="card-stat">
+
+                    <h3>Pesanan Menunggu</h3>
+
+                    <p id="pesananMenunggu">
+                        0
+                    </p>
+
+                </div>
+
+
+                <div class="card-stat">
+
+                    <h3>Pesanan Selesai</h3>
+
+                    <p id="pesananSelesai">
+                        0
+                    </p>
+
+                </div>
+
+
+                <div class="card-stat">
+
+                    <h3>Total Pendapatan</h3>
+
+                    <p id="totalPendapatan">
+                        Rp0
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= STATUS PESANAN ================= -->
+
+        <section>
+
+            <h2>Status Pesanan</h2>
+
+            <div class="status-box">
+
+                <div>
+                    <span class="dot menunggu"></span>
+                    Menunggu
+                    <strong id="jumlahMenunggu">0</strong>
+                </div>
+
+                <div>
+                    <span class="dot selesai"></span>
+                    Selesai
+                    <strong id="jumlahSelesai">0</strong>
+                </div>
+
+                <div>
+                    <span class="dot dibatalkan"></span>
+                    Dibatalkan
+                    <strong id="jumlahDibatalkan">0</strong>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= PRODUK TERLARIS ================= -->
+
+        <section id="produk">
+
+            <h2>Produk Terlaris</h2>
+
+            <div id="produkTerlaris" class="produk-terlaris">
+
+                <p>Memuat data...</p>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= PESANAN ================= -->
+
+        <section id="pesanan">
+
+            <h2>Data Pesanan Terbaru</h2>
+
+            <div class="table-container">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>No</th>
+                            <th>Nama</th>
+                            <th>No. HP</th>
+                            <th>Total</th>
+                            <th>Status</th>
+                            <th>Tanggal</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="tabelPesanan">
+
+                        <tr>
+
+                            <td colspan="6">
+                                Memuat data...
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= PENDAPATAN ================= -->
+
+        <section id="pendapatan">
+
+            <h2>Informasi Pendapatan</h2>
+
+            <div class="pendapatan-card">
+
+                <p>Total pendapatan dari pesanan yang selesai:</p>
+
+                <h2 id="pendapatanBesar">
+                    Rp0
+                </h2>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<!-- ================= FIREBASE ================= -->
+
+<script type="module">
+
+import {
+    collection,
+    getDocs
+} from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+
+import { db } from "./firebase-config.js";
+
+
+/* =====================================
+   CEK LOGIN CEO
+===================================== */
+
+if (localStorage.getItem("loginCEO") !== "true") {
+
+    window.location.href = "ceo-login.html";
+
+}
+
+
+/* =====================================
+   FORMAT RUPIAH
+===================================== */
+
+function formatRupiah(angka) {
+
+    return "Rp" + Number(angka || 0).toLocaleString("id-ID");
+
+}
+
+
+/* =====================================
+   AMBIL DATA PESANAN
+===================================== */
+
+async function tampilkanDataCEO() {
+
+    try {
+
+        const snapshot = await getDocs(
+            collection(db, "pesanan")
+        );
+
+        let pesanan = [];
+
+        snapshot.forEach((doc) => {
+
+            pesanan.push({
+                id: doc.id,
+                ...doc.data()
+            });
+
+        });
+
+
+        /* =====================================
+           STATISTIK
+        ===================================== */
+
+        const total = pesanan.length;
+
+        const menunggu = pesanan.filter(
+            item => item.status === "Menunggu"
+        ).length;
+
+        const selesai = pesanan.filter(
+            item => item.status === "Selesai"
+        ).length;
+
+        const dibatalkan = pesanan.filter(
+            item => item.status === "Dibatalkan"
+        ).length;
+
+
+        document.getElementById("totalPesanan").textContent = total;
+
+        document.getElementById("pesananMenunggu").textContent = menunggu;
+
+        document.getElementById("pesananSelesai").textContent = selesai;
+
+        document.getElementById("jumlahMenunggu").textContent = menunggu;
+
+        document.getElementById("jumlahSelesai").textContent = selesai;
+
+        document.getElementById("jumlahDibatalkan").textContent = dibatalkan;
+
+
+        /* =====================================
+           HITUNG PENDAPATAN
+        ===================================== */
+
+        let pendapatan = 0;
+
+        pesanan.forEach(item => {
+
+            if (item.status === "Selesai") {
+
+                pendapatan += Number(item.total || 0);
+
+            }
+
+        });
+
+
+        document.getElementById("totalPendapatan").textContent =
+            formatRupiah(pendapatan);
+
+        document.getElementById("pendapatanBesar").textContent =
+            formatRupiah(pendapatan);
+
+
+        /* =====================================
+           DATA PRODUK TERLARIS
+        ===================================== */
+
+        let produk = {};
+
+        pesanan.forEach(item => {
+
+            if (item.status === "Dibatalkan") {
+                return;
+            }
+
+            if (!item.pesanan) {
+                return;
+            }
+
+            item.pesanan.forEach(barang => {
+
+                if (!produk[barang.nama]) {
+
+                    produk[barang.nama] = 0;
+
+                }
+
+                produk[barang.nama] += Number(
+                    barang.jumlah || 0
+                );
+
+            });
+
+        });
+
+
+        let daftarProduk = Object.entries(produk);
+
+        daftarProduk.sort(
+            (a, b) => b[1] - a[1]
+        );
+
+
+        const produkContainer =
+            document.getElementById("produkTerlaris");
+
+        produkContainer.innerHTML = "";
+
+
+        if (daftarProduk.length === 0) {
+
+            produkContainer.innerHTML =
+                "<p>Belum ada data produk.</p>";
+
+        } else {
+
+            daftarProduk
+                .slice(0, 5)
+                .forEach((item, index) => {
+
+                    produkContainer.innerHTML += `
+
+                        <div class="produk-item">
+
+                            <div class="nomor-produk">
+                                ${index + 1}
+                            </div>
+
+                            <div>
+
+                                <strong>
+                                    ${item[0]}
+                                </strong>
+
+                                <p>
+                                    Terjual ${item[1]} unit
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    `;
+
+                });
+
+        }
+
+
+        /* =====================================
+           TABEL PESANAN
+        ===================================== */
+
+        const tabel =
+            document.getElementById("tabelPesanan");
+
+        tabel.innerHTML = "";
+
+
+        if (pesanan.length === 0) {
+
+            tabel.innerHTML = `
+
+                <tr>
+
+                    <td colspan="6">
+                        Belum ada pesanan.
+                    </td>
+
+                </tr>
+
+            `;
+
+        } else {
+
+            /* Pesanan terbaru di atas */
+
+            pesanan.reverse();
+
+
+            pesanan
+                .slice(0, 10)
+                .forEach((item, index) => {
+
+                    let tanggal = "-";
+
+                    if (item.tanggal) {
+
+                        tanggal = new Date(
+                            item.tanggal
+                        ).toLocaleString("id-ID");
+
+                    }
+
+
+                    tabel.innerHTML += `
+
+                        <tr>
+
+                            <td>
+                                ${index + 1}
+                            </td>
+
+                            <td>
+                                ${item.namaPelanggan || "-"}
+                            </td>
+
+                            <td>
+                                ${item.nomorHP || "-"}
+                            </td>
+
+                            <td>
+                                ${formatRupiah(item.total)}
+                            </td>
+
+                            <td>
+
+                                <span class="status ${(
+                                    item.status || ""
+                                ).toLowerCase()}">
+
+                                    ${item.status || "-"}
+
+                                </span>
+
+                            </td>
+
+                            <td>
+                                ${tanggal}
+                            </td>
+
+                        </tr>
+
+                    `;
+
+                });
+
+        }
+
+
+    } catch (error) {
+
+        console.error(
+            "Gagal mengambil data CEO:",
+            error
+        );
+
+        alert(
+            "Data CEO gagal dimuat. Periksa koneksi Firebase."
+        );
+
+    }
+
+}
+
+
+/* Jalankan */
+
+tampilkanDataCEO();
+
+
+/* =====================================
+   LOGOUT
+===================================== */
+
+window.logoutCEO = function() {
+
+    localStorage.removeItem("loginCEO");
+
+    alert("CEO berhasil logout.");
+
+    window.location.href = "ceo-login.html";
+
+};
+
+</script>
+
+</body>
+</html>
