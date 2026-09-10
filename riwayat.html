@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Riwayat Pesanan - Tukang Sayur Online</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+
+<body>
+
+
+<header>
+
+    <div class="logo">
+
+        <img src="logo.jpg" alt="Logo">
+
+        <h2>Tukang Sayur Online</h2>
+
+    </div>
+
+
+    <nav>
+
+        <a href="index.html">Beranda</a>
+
+        <a href="kategori.html">Kategori</a>
+
+        <a href="stook.html">stook</a>
+
+        <a href="tentang.html">Tentang Kami</a>
+
+        <a href="keranjang.html">Keranjang</a>
+
+        <a href="checkout.html">Checkout</a>
+
+        <a href="login.html">Login</a>
+
+        <a href="admin.html">admin</a>
+
+        <a href="riwayat.html">Riwayat Pesanan</a>
+
+    </nav>
+
+</header>
+
+
+
+<div class="checkout-container">
+
+    <div class="checkout-box">
+
+
+        <h2>📋 Riwayat Pesanan</h2>
+
+
+        <div id="loading">
+
+            Memuat pesanan...
+
+        </div>
+
+
+        <div id="detailPesanan">
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================================
+     FIREBASE FIRESTORE
+========================================= -->
+
+<script type="module">
+
+
+import {
+
+    collection,
+
+    getDocs,
+
+    doc,
+
+    updateDoc
+
+} from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+
+
+import {
+
+    db
+
+} from "./firebase-config.js";
+
+
+
+/* =========================================
+   AMBIL ID PESANAN TERAKHIR
+========================================= */
+
+const idPesanan =
+
+    localStorage.getItem("pesananTerakhir");
+
+
+
+const loading =
+
+    document.getElementById("loading");
+
+
+const detailPesanan =
+
+    document.getElementById("detailPesanan");
+
+
+
+/* =========================================
+   CEK ID PESANAN
+========================================= */
+
+if (!idPesanan) {
+
+    loading.innerHTML =
+
+        "<p>Belum ada pesanan yang dibuat.</p>";
+
+} else {
+
+    tampilkanPesanan();
+
+}
+
+
+
+/* =========================================
+   TAMPILKAN PESANAN
+========================================= */
+
+async function tampilkanPesanan() {
+
+
+    try {
+
+
+        const snapshot =
+
+            await getDocs(
+
+                collection(db, "pesanan")
+
+            );
+
+
+        let pesananDitemukan = null;
+
+
+        snapshot.forEach((dokumen) => {
+
+
+            if (dokumen.id === idPesanan) {
+
+                pesananDitemukan = {
+
+                    id: dokumen.id,
+
+                    ...dokumen.data()
+
+                };
+
+            }
+
+        });
+
+
+
+        loading.style.display = "none";
+
+
+
+        /* =========================================
+           JIKA PESANAN TIDAK DITEMUKAN
+        ========================================= */
+
+        if (!pesananDitemukan) {
+
+            detailPesanan.innerHTML = `
+
+                <p>
+                    Pesanan tidak ditemukan.
+                </p>
+
+            `;
+
+            return;
+
+        }
+
+
+
+        /* =========================================
+           TAMPILKAN DATA PESANAN
+        ========================================= */
+
+        let daftarProduk = "";
+
+
+
+        pesananDitemukan.pesanan.forEach(item => {
+
+
+            const subtotal =
+
+                item.harga * item.jumlah;
+
+
+            daftarProduk += `
+
+                <tr>
+
+                    <td>
+                        ${item.nama}
+                    </td>
+
+                    <td>
+                        ${item.jumlah} ikat
+                    </td>
+
+                    <td>
+                        Rp${subtotal.toLocaleString('id-ID')}
+                    </td>
+
+                </tr>
+
+            `;
+
+        });
+
+
+
+        /* =========================================
+           STATUS
+        ========================================= */
+
+        let warnaStatus = "";
+
+
+        if (pesananDitemukan.status === "Menunggu") {
+
+            warnaStatus = "orange";
+
+        }
+
+        else if (pesananDitemukan.status === "Diproses") {
+
+            warnaStatus = "blue";
+
+        }
+
+        else if (pesananDitemukan.status === "Selesai") {
+
+            warnaStatus = "green";
+
+        }
+
+        else if (pesananDitemukan.status === "Dibatalkan") {
+
+            warnaStatus = "red";
+
+        }
+
+
+
+        /* =========================================
+           TOMBOL BATAL
+        ========================================= */
+
+        let tombolBatal = "";
+
+
+        if (
+            pesananDitemukan.status === "Menunggu"
+        ) {
+
+            tombolBatal = `
+
+                <button
+                    onclick="batalkanPesanan('${pesananDitemukan.id}')"
+                    style="
+                        margin-top:20px;
+                        background:#d32f2f;
+                        color:white;
+                        border:none;
+                        padding:12px 20px;
+                        border-radius:8px;
+                        cursor:pointer;
+                    "
+                >
+
+                    Batalkan Pesanan
+
+                </button>
+
+            `;
+
+        }
+
+
+
+        /* =========================================
+           TAMPILKAN KE HALAMAN
+        ========================================= */
+
+        detailPesanan.innerHTML = `
+
+            <div
+                style="
+                    margin-top:20px;
+                    padding:20px;
+                    border:1px solid #ddd;
+                    border-radius:10px;
+                "
+            >
+
+                <h3>
+                    Detail Pesanan
+                </h3>
+
+
+                <p>
+
+                    <strong>
+                        Nama Pelanggan:
+                    </strong>
+
+                    ${pesananDitemukan.namaPelanggan}
+
+                </p>
+
+
+                <p>
+
+                    <strong>
+                        Nomor HP:
+                    </strong>
+
+                    ${pesananDitemukan.nomorHP}
+
+                </p>
+
+
+                <p>
+
+                    <strong>
+                        Alamat:
+                    </strong>
+
+                    ${pesananDitemukan.alamat}
+
+                </p>
+
+
+                <p>
+
+                    <strong>
+                        Metode Pembayaran:
+                    </strong>
+
+                    ${pesananDitemukan.metodePembayaran}
+
+                </p>
+
+
+                <p>
+
+                    <strong>
+                        Status:
+                    </strong>
+
+                    <span
+                        style="
+                            font-weight:bold;
+                            color:${warnaStatus};
+                        "
+                    >
+
+                        ${pesananDitemukan.status}
+
+                    </span>
+
+                </p>
+
+
+                <h3>
+                    Produk Pesanan
+                </h3>
+
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                Produk
+                            </th>
+
+                            <th>
+                                Jumlah
+                            </th>
+
+                            <th>
+                                Subtotal
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                        ${daftarProduk}
+
+                    </tbody>
+
+
+                    <tfoot>
+
+                        <tr>
+
+                            <th colspan="2">
+                                Total
+                            </th>
+
+                            <th>
+
+                                Rp${pesananDitemukan.total.toLocaleString('id-ID')}
+
+                            </th>
+
+                        </tr>
+
+                    </tfoot>
+
+                </table>
+
+
+                ${tombolBatal}
+
+            </div>
+
+        `;
+
+
+    }
+
+    catch (error) {
+
+
+        console.error(
+            "Error mengambil pesanan:",
+            error
+        );
+
+
+        loading.style.display = "none";
+
+
+        detailPesanan.innerHTML = `
+
+            <p>
+
+                Gagal mengambil data pesanan.
+
+            </p>
+
+        `;
+
+    }
+
+}
+
+
+
+/* =========================================
+   FUNGSI BATAL PESANAN
+========================================= */
+
+window.batalkanPesanan = async function(idPesanan) {
+
+
+    const yakin = confirm(
+
+        "Apakah kamu yakin ingin membatalkan pesanan ini?"
+
+    );
+
+
+    if (!yakin) {
+
+        return;
+
+    }
+
+
+
+    try {
+
+
+        /* =========================================
+           AMBIL DATA PESANAN
+        ========================================= */
+
+        const snapshot =
+
+            await getDocs(
+
+                collection(db, "pesanan")
+
+            );
+
+
+        let pesanan = null;
+
+
+        snapshot.forEach((dokumen) => {
+
+
+            if (dokumen.id === idPesanan) {
+
+                pesanan = {
+
+                    id: dokumen.id,
+
+                    ...dokumen.data()
+
+                };
+
+            }
+
+        });
+
+
+
+        if (!pesanan) {
+
+            alert(
+                "Pesanan tidak ditemukan."
+            );
+
+            return;
+
+        }
+
+
+
+        /* =========================================
+           CEK STATUS
+        ========================================= */
+
+        if (pesanan.status !== "Menunggu") {
+
+            alert(
+                "Pesanan sudah diproses dan tidak dapat dibatalkan."
+            );
+
+            return;
+
+        }
+
+
+
+        /* =========================================
+           KEMBALIKAN STOK
+        ========================================= */
+
+        let stok =
+
+            JSON.parse(
+
+                localStorage.getItem("stok")
+
+            ) || {};
+
+
+
+        pesanan.pesanan.forEach(item => {
+
+
+            if (
+                stok[item.nama] !== undefined
+            ) {
+
+                stok[item.nama] +=
+                    item.jumlah;
+
+            }
+
+        });
+
+
+
+        localStorage.setItem(
+
+            "stok",
+
+            JSON.stringify(stok)
+
+        );
+
+
+
+        /* =========================================
+           UBAH STATUS FIREBASE
+        ========================================= */
+
+        await updateDoc(
+
+            doc(
+                db,
+                "pesanan",
+                idPesanan
+            ),
+
+            {
+
+                status: "Dibatalkan"
+
+            }
+
+        );
+
+
+
+        /* =========================================
+           BERHASIL
+        ========================================= */
+
+        alert(
+
+            "Pesanan berhasil dibatalkan dan stok telah dikembalikan."
+
+        );
+
+
+        location.reload();
+
+
+    }
+
+    catch (error) {
+
+
+        console.error(
+
+            "Error membatalkan pesanan:",
+
+            error
+
+        );
+
+
+        alert(
+
+            "Pesanan gagal dibatalkan. Silakan coba lagi."
+
+        );
+
+    }
+
+};
+
+
+</script>
+
+
+</body>
+
+</html>
