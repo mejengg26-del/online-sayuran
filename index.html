@@ -12,6 +12,12 @@
 
 <body>
 
+<script>
+    // Cek apakah pelanggan sudah login
+    if (localStorage.getItem("loginUser") !== "true") {
+        window.location.href = "login.html";
+    }
+</script>
     <!-- ================= HEADER ================= -->
 
     <header>
