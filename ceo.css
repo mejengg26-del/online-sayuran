@@ -1,182 +1,514 @@
+/* ================================
+   RESET
+================================ */
+
 * {
-    box-sizing: border-box;
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
 body {
-    font-family: Arial, sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
     background: #f5fff5;
-    color: #333;
+    color: #263238;
 }
 
-/* HEADER CEO */
-.ceo-header {
+
+/* ================================
+   HEADER
+================================ */
+
+header {
+    height: 70px;
     background: #2e7d32;
     color: white;
-    padding: 20px 40px;
+
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
+
+    padding: 0 30px;
+
+    box-shadow: 0 2px 8px rgba(0,0,0,0.12);
 }
 
-.ceo-header h1 {
-    font-size: 24px;
+.logo-area {
+    display: flex;
+    align-items: center;
+    gap: 12px;
 }
 
-.logout-btn {
+.logo-area img {
+    width: 45px;
+    height: 45px;
+
+    object-fit: cover;
+    border-radius: 50%;
+
+    background: white;
+}
+
+.logo-area h2 {
+    font-size: 20px;
+    margin-bottom: 3px;
+}
+
+.logo-area p {
+    font-size: 13px;
+    opacity: 0.9;
+}
+
+
+/* ================================
+   LOGOUT
+================================ */
+
+.logout {
+    border: none;
     background: white;
     color: #2e7d32;
-    border: none;
-    padding: 10px 18px;
-    border-radius: 6px;
+
+    padding: 9px 18px;
+
+    border-radius: 7px;
+
     cursor: pointer;
     font-weight: bold;
+
+    transition: 0.2s;
 }
 
-.logout-btn:hover {
+.logout:hover {
     background: #e8f5e9;
 }
 
-/* CONTAINER */
-.ceo-container {
-    max-width: 1200px;
-    margin: 30px auto;
-    padding: 0 20px;
+
+/* ================================
+   LAYOUT
+================================ */
+
+.layout {
+    display: flex;
+    min-height: calc(100vh - 70px);
 }
 
-.ceo-container h2 {
-    margin-bottom: 25px;
+
+/* ================================
+   SIDEBAR
+================================ */
+
+aside {
+    width: 230px;
+
+    background: white;
+
+    padding: 25px 15px;
+
+    border-right: 1px solid #dce8dc;
+
+    box-shadow: 2px 0 8px rgba(0,0,0,0.04);
 }
 
-/* STATISTIK */
-.statistik {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
+aside h3 {
+    color: #2e7d32;
+
+    font-size: 15px;
+
+    margin-bottom: 18px;
+
+    padding-left: 10px;
+}
+
+aside a {
+    display: block;
+
+    text-decoration: none;
+
+    color: #455a64;
+
+    padding: 12px 14px;
+
+    margin-bottom: 6px;
+
+    border-radius: 7px;
+
+    transition: 0.2s;
+}
+
+aside a:hover {
+    background: #e8f5e9;
+    color: #2e7d32;
+}
+
+
+/* ================================
+   MAIN
+================================ */
+
+main {
+    flex: 1;
+
+    padding: 30px;
+
+    max-width: 1400px;
+}
+
+section {
     margin-bottom: 30px;
 }
 
-.stat-card {
-    background: white;
-    padding: 25px;
-    border-radius: 12px;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+h1 {
+    font-size: 32px;
+    color: #1b5e20;
+
+    margin-bottom: 5px;
 }
 
-.stat-card h3 {
-    font-size: 16px;
-    color: #666;
-    margin-bottom: 10px;
+h2 {
+    color: #1b5e20;
+    margin-bottom: 15px;
 }
 
-.stat-card p {
-    font-size: 28px;
-    font-weight: bold;
-    color: #2e7d32;
-}
-
-/* BAGIAN DATA */
-.ceo-section {
-    background: white;
-    padding: 25px;
-    border-radius: 12px;
+.subjudul {
+    color: #607d8b;
     margin-bottom: 25px;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.08);
 }
 
-.ceo-section h3 {
-    margin-bottom: 20px;
+
+/* ================================
+   STATISTIK
+================================ */
+
+.statistik {
+    display: grid;
+
+    grid-template-columns: repeat(4, 1fr);
+
+    gap: 20px;
+}
+
+.card-stat {
+    background: white;
+
+    padding: 22px;
+
+    border-radius: 12px;
+
+    border: 1px solid #e0e8e0;
+
+    box-shadow: 0 3px 10px rgba(0,0,0,0.06);
+}
+
+.card-stat h3 {
+    font-size: 15px;
+
+    color: #607d8b;
+
+    margin-bottom: 12px;
+}
+
+.card-stat p {
+    font-size: 28px;
+
+    font-weight: bold;
+
     color: #2e7d32;
 }
 
-/* STATUS */
-.status-container {
-    display: flex;
-    gap: 20px;
-    flex-wrap: wrap;
-}
+
+/* ================================
+   STATUS PESANAN
+================================ */
 
 .status-box {
-    padding: 15px 25px;
-    border-radius: 8px;
-    background: #f1f8e9;
+    background: white;
+
+    padding: 20px;
+
+    border-radius: 12px;
+
+    display: flex;
+
+    gap: 40px;
+
+    border: 1px solid #e0e8e0;
+
+    box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+}
+
+.status-box div {
+    display: flex;
+    align-items: center;
+
+    gap: 8px;
+
+    color: #455a64;
 }
 
 .status-box strong {
-    color: #2e7d32;
+    color: #263238;
 }
 
-/* TABEL */
-.table-wrapper {
+
+/* ================================
+   DOT STATUS
+================================ */
+
+.dot {
+    width: 11px;
+    height: 11px;
+
+    display: inline-block;
+
+    border-radius: 50%;
+}
+
+.dot.menunggu {
+    background: #ff9800;
+}
+
+.dot.selesai {
+    background: #4caf50;
+}
+
+.dot.dibatalkan {
+    background: #f44336;
+}
+
+
+/* ================================
+   PRODUK TERLARIS
+================================ */
+
+.produk-terlaris {
+    display: grid;
+
+    grid-template-columns: repeat(5, 1fr);
+
+    gap: 15px;
+}
+
+.produk-item {
+    background: white;
+
+    padding: 18px;
+
+    border-radius: 10px;
+
+    border: 1px solid #e0e8e0;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    box-shadow: 0 3px 8px rgba(0,0,0,0.05);
+}
+
+.nomor-produk {
+    width: 35px;
+    height: 35px;
+
+    background: #e8f5e9;
+
+    color: #2e7d32;
+
+    border-radius: 50%;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    font-weight: bold;
+}
+
+.produk-item strong {
+    color: #263238;
+}
+
+.produk-item p {
+    margin-top: 5px;
+
+    font-size: 13px;
+
+    color: #78909c;
+}
+
+
+/* ================================
+   TABEL PESANAN
+================================ */
+
+.table-container {
+    width: 100%;
+
     overflow-x: auto;
+
+    background: white;
+
+    border-radius: 12px;
+
+    border: 1px solid #e0e8e0;
+
+    box-shadow: 0 3px 10px rgba(0,0,0,0.05);
 }
 
 table {
     width: 100%;
+
     border-collapse: collapse;
+
+    min-width: 750px;
 }
 
-table th,
-table td {
-    padding: 12px;
-    border-bottom: 1px solid #ddd;
-    text-align: left;
-}
-
-table th {
+thead {
     background: #e8f5e9;
-    color: #2e7d32;
 }
 
-table tr:hover {
+th {
+    padding: 15px;
+
+    text-align: left;
+
+    color: #1b5e20;
+
+    font-size: 14px;
+}
+
+td {
+    padding: 14px 15px;
+
+    border-top: 1px solid #eeeeee;
+
+    font-size: 14px;
+}
+
+tbody tr:hover {
     background: #f9fff9;
 }
 
-/* STATUS PESANAN */
+
+/* ================================
+   STATUS DALAM TABEL
+================================ */
+
 .status {
-    padding: 6px 10px;
-    border-radius: 5px;
-    font-size: 13px;
+    display: inline-block;
+
+    padding: 6px 12px;
+
+    border-radius: 20px;
+
+    font-size: 12px;
+
     font-weight: bold;
 }
 
-.status-menunggu {
+.status.menunggu {
     background: #fff3cd;
     color: #856404;
 }
 
-.status-selesai {
+.status.selesai {
     background: #d4edda;
     color: #155724;
 }
 
-.status-dibatalkan {
+.status.dibatalkan {
     background: #f8d7da;
     color: #721c24;
 }
 
-/* RESPONSIVE */
-@media (max-width: 900px) {
+
+/* ================================
+   PENDAPATAN
+================================ */
+
+.pendapatan-card {
+    background: white;
+
+    padding: 25px;
+
+    border-radius: 12px;
+
+    border-left: 5px solid #2e7d32;
+
+    box-shadow: 0 3px 10px rgba(0,0,0,0.06);
+}
+
+.pendapatan-card p {
+    color: #607d8b;
+
+    margin-bottom: 8px;
+}
+
+.pendapatan-card h2 {
+    font-size: 32px;
+
+    color: #2e7d32;
+
+    margin: 0;
+}
+
+
+/* ================================
+   RESPONSIVE
+================================ */
+
+@media (max-width: 1000px) {
+
     .statistik {
         grid-template-columns: repeat(2, 1fr);
     }
-}
 
-@media (max-width: 600px) {
-    .ceo-header {
-        padding: 15px 20px;
+    .produk-terlaris {
+        grid-template-columns: repeat(2, 1fr);
     }
 
-    .ceo-header h1 {
-        font-size: 20px;
+}
+
+@media (max-width: 700px) {
+
+    header {
+        padding: 0 15px;
+    }
+
+    .layout {
+        display: block;
+    }
+
+    aside {
+        width: 100%;
+
+        border-right: none;
+        border-bottom: 1px solid #dce8dc;
+    }
+
+    aside a {
+        display: inline-block;
+
+        margin-right: 5px;
+    }
+
+    main {
+        padding: 20px 15px;
     }
 
     .statistik {
         grid-template-columns: 1fr;
     }
 
-    .ceo-container {
-        padding: 0 15px;
+    .produk-terlaris {
+        grid-template-columns: 1fr;
     }
+
+    .status-box {
+        flex-direction: column;
+
+        gap: 15px;
+    }
+
 }
