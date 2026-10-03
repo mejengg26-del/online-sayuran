@@ -1,409 +1,120 @@
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
-
     <meta charset="UTF-8">
-
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Lacak Kurir - Tukang Sayur Online</title>
 
-
-    <!-- LEAFLET -->
-
+    <!-- Leaflet CSS -->
     <link
         rel="stylesheet"
         href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
     />
 
-
     <style>
-
         body {
-
             margin: 0;
-
             font-family: Arial, sans-serif;
-
             background: #f5fff5;
-
         }
-
 
         header {
-
             background: #2e7d32;
-
             color: white;
-
-            padding: 20px;
-
+            padding: 15px;
             text-align: center;
-
         }
-
 
         .container {
-
-            max-width: 900px;
-
-            margin: 25px auto;
-
             padding: 20px;
-
         }
 
-
-        .info {
-
-            background: white;
-
-            padding: 20px;
-
-            border-radius: 12px;
-
-            box-shadow:
-                0 3px 10px
-                rgba(0,0,0,0.1);
-
-            margin-bottom: 20px;
-
-        }
-
-
-        .info h2 {
-
-            margin-top: 0;
-
+        h2 {
+            text-align: center;
             color: #2e7d32;
-
         }
-
 
         #status {
-
-            padding: 12px;
-
-            border-radius: 8px;
-
-            background: #f1f8e9;
-
-            margin-top: 10px;
-
+            text-align: center;
+            margin-bottom: 15px;
+            font-weight: bold;
         }
 
-
+        /* WAJIB ADA TINGGI */
         #map {
-
             width: 100%;
-
             height: 500px;
-
-            border-radius: 12px;
-
-            overflow: hidden;
-
-            box-shadow:
-                0 3px 10px
-                rgba(0,0,0,0.15);
-
+            border-radius: 10px;
+            border: 2px solid #2e7d32;
         }
 
-
-        .kembali {
-
-            display: inline-block;
-
-            margin-top: 20px;
-
-            padding: 12px 20px;
-
+        .btn-kembali {
+            display: block;
+            width: fit-content;
+            margin: 20px auto;
+            padding: 10px 20px;
             background: #2e7d32;
-
             color: white;
-
             text-decoration: none;
-
-            border-radius: 8px;
-
+            border-radius: 6px;
         }
-
-
-        .kembali:hover {
-
-            background: #256628;
-
-        }
-
-
-        @media (max-width: 600px) {
-
-            .container {
-
-                padding: 12px;
-
-            }
-
-
-            #map {
-
-                height: 400px;
-
-            }
-
-        }
-
     </style>
-
 </head>
-
 
 <body>
 
-
 <header>
-
     <h1>🚚 Lacak Kurir</h1>
-
-    <p style="color:white;">
-        Tukang Sayur Online
-    </p>
-
 </header>
-
-
 
 <div class="container">
 
+    <h2>Lokasi Kurir</h2>
 
-    <div class="info">
-
-        <h2>📍 Posisi Kurir</h2>
-
-        <p>
-            Lokasi kurir akan diperbarui secara otomatis.
-        </p>
-
-
-        <div id="status">
-
-            Menunggu lokasi kurir...
-
-        </div>
-
-    </div>
-
-
+    <p id="status">
+        📍 Menampilkan peta Malang...
+    </p>
 
     <div id="map"></div>
 
-
-    <a href="riwayat.html"
-       class="kembali">
-
+    <a href="riwayat.html" class="btn-kembali">
         ← Kembali ke Riwayat
-
     </a>
-
 
 </div>
 
-
-
-<!-- LEAFLET JS -->
-
+<!-- Leaflet JS -->
 <script
     src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
 </script>
 
+<script>
 
+    // Titik awal Kota Malang
+    const malang = [-7.9797, 112.6304];
 
-<script type="module">
+    // Membuat peta
+    const map = L.map("map").setView(malang, 13);
 
-
-import { db } from "./firebase.js";
-
-
-import {
-
-    doc,
-
-    onSnapshot
-
-} from
-"https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
-
-
-
-/* =====================================
-   MEMBUAT PETA
-===================================== */
-
-
-let map = L.map("map").setView(
-    [-7.98, 112.63],
-    13
-);
-
-
-L.tileLayer(
-    "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-    {
-
-        attribution:
-        '&copy; OpenStreetMap contributors'
-
-    }
-
-).addTo(map);
-
-
-
-/* =====================================
-   MARKER KURIR
-===================================== */
-
-
-let markerKurir = null;
-
-
-
-/* =====================================
-   MENGAMBIL LOKASI KURIR
-===================================== */
-
-
-const lokasiRef =
-    doc(db, "lokasiKurir", "kurir1");
-
-
-onSnapshot(
-
-    lokasiRef,
-
-    function(snapshot) {
-
-
-        if (!snapshot.exists()) {
-
-            document.getElementById(
-                "status"
-            ).textContent =
-                "Lokasi kurir belum tersedia.";
-
-            return;
-
+    // Tampilan peta OpenStreetMap
+    L.tileLayer(
+        "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+        {
+            attribution: '&copy; OpenStreetMap contributors'
         }
+    ).addTo(map);
 
+    // Marker awal
+    const marker = L.marker(malang)
+        .addTo(map)
+        .bindPopup("📍 Kota Malang")
+        .openPopup();
 
-        const data =
-            snapshot.data();
-
-
-        const latitude =
-            Number(data.latitude);
-
-
-        const longitude =
-            Number(data.longitude);
-
-
-
-        /* ================================
-           UPDATE STATUS
-        ================================= */
-
-
-        document.getElementById(
-            "status"
-        ).innerHTML = `
-
-            🟢 Kurir sedang dalam perjalanan
-            <br>
-
-            Latitude:
-            ${latitude.toFixed(6)}
-
-            <br>
-
-            Longitude:
-            ${longitude.toFixed(6)}
-
-        `;
-
-
-
-        /* ================================
-           BUAT / UPDATE MARKER
-        ================================= */
-
-
-        if (markerKurir === null) {
-
-
-            markerKurir =
-                L.marker([
-                    latitude,
-                    longitude
-                ])
-                .addTo(map);
-
-
-            markerKurir.bindPopup(
-                "🚚 Posisi Kurir"
-            );
-
-
-        } else {
-
-
-            markerKurir.setLatLng([
-                latitude,
-                longitude
-            ]);
-
-        }
-
-
-
-        /* ================================
-           PUSATKAN PETA
-        ================================= */
-
-
-        map.setView(
-            [
-                latitude,
-                longitude
-            ],
-            16
-        );
-
-
-    },
-
-
-    function(error) {
-
-
-        console.error(error);
-
-
-        document.getElementById(
-            "status"
-        ).textContent =
-            "Gagal mengambil lokasi kurir.";
-
-    }
-
-);
-
+    document.getElementById("status").innerHTML =
+        "📍 Peta berhasil dimuat. Menampilkan area Kota Malang.";
 
 </script>
 
-
 </body>
-
 </html>
