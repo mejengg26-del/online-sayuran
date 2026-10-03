@@ -611,37 +611,54 @@
                                 </span>
 
                             </td>
-                        <td>
-    ${data.kurir || "Belum diambil"}
-</td>
 
-<td>
-    ${
-        data.status === "Menunggu"
-        ? `
-            <button
-                onclick="ambilPesanan('${doc.id}')"
-                style="
-                    background:#2e7d32;
-                    color:white;
-                    border:none;
-                    padding:8px 12px;
-                    border-radius:6px;
-                    cursor:pointer;
-                "
-            >
-                Ambil Pesanan
-            </button>
-          `
-        : "-"
-    }
-</td>
+                        <td>
+                            ${data.kurir || "Belum diambil"}
+                        </td>
+
+                        <td>
+                            ${
+                                data.status === "Menunggu"
+                                ? `
+                                    <button
+                                        onclick="ambilPesanan('${doc.id}')"
+                                        style="
+                                            background:#2e7d32;
+                                            color:white;
+                                            border:none;
+                                            padding:8px 12px;
+                                            border-radius:6px;
+                                            cursor:pointer;
+                                            margin-bottom:5px;
+                                        "
+                                    >
+                                        Ambil Pesanan
+                                    </button>
+                                  `
+                                : data.status === "Diproses"
+                                ? `
+                                    <button
+                                        onclick="antarPesanan('${doc.id}')"
+                                        style="
+                                            background:#1976d2;
+                                            color:white;
+                                            border:none;
+                                            padding:8px 12px;
+                                            border-radius:6px;
+                                            cursor:pointer;
+                                        "
+                                    >
+                                        🚚 Pesanan Diantar
+                                    </button>
+                                  `
+                                : "-"
+                            }
+                        </td>
+
                         </tr>
 
                     `;
-
-                });
-
+                  });
 
                 /* =========================================
                    UPDATE JUMLAH DASHBOARD
@@ -721,6 +738,35 @@ window.ambilPesanan = async function(idPesanan) {
 
         alert("Gagal menyimpan data kurir.");
     }
+};
+window.antarPesanan = async function(idPesanan) {
+
+    try {
+
+        await updateDoc(
+            doc(db, "pesanan", idPesanan),
+            {
+                status: "Pesanan Diantar"
+            }
+        );
+
+        alert(
+            "Status pesanan sekarang: Pesanan Diantar"
+        );
+
+    } catch (error) {
+
+        console.error(
+            "Gagal mengubah status pesanan:",
+            error
+        );
+
+        alert(
+            "Gagal mengubah status pesanan."
+        );
+
+    }
+
 };
     </script>
 
