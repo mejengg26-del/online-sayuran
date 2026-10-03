@@ -88,15 +88,16 @@
         lokasi kurir kepada pelanggan.
     </p>
 
-    <button onclick="mulaiKirimLokasi()">
-        Mulai Kirim Lokasi
-    </button>
-
-    <button onclick="berhentiKirimLokasi()"
-            style="background:#c62828;">
-        Berhenti Kirim Lokasi
-    </button>
-
+   <button type="button" onclick="mulaiKirimLokasi()">
+    📍 Mulai Kirim Lokasi
+</button>
+<button
+    type="button"
+    onclick="berhentiKirimLokasi()"
+    style="background:#c62828;"
+>
+    ⛔ Berhenti Kirim Lokasi
+</button>
     <div id="status">
         Status: Belum mengirim lokasi
     </div>
@@ -117,7 +118,6 @@ import {
     setDoc
 } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 
-
 let watchID = null;
 
 
@@ -127,34 +127,33 @@ let watchID = null;
 
 window.mulaiKirimLokasi = function () {
 
+    const status = document.getElementById("status");
+    const lokasi = document.getElementById("lokasi");
+
+    status.textContent = "Status: Meminta izin lokasi...";
+
     if (!navigator.geolocation) {
 
-        alert("Browser tidak mendukung GPS.");
+        status.textContent =
+            "Status: Browser tidak mendukung GPS.";
 
         return;
     }
-
-
-    document.getElementById("status").textContent =
-        "Status: Sedang mengirim lokasi...";
-
 
     watchID = navigator.geolocation.watchPosition(
 
         async function (position) {
 
-            const latitude =
-                position.coords.latitude;
+            const latitude = position.coords.latitude;
+            const longitude = position.coords.longitude;
 
-            const longitude =
-                position.coords.longitude;
-
-
-            document.getElementById("lokasi").innerHTML = `
+            lokasi.innerHTML = `
                 Latitude: ${latitude}<br>
                 Longitude: ${longitude}
             `;
 
+            status.textContent =
+                "Status: Sedang mengirim lokasi...";
 
             try {
 
@@ -163,42 +162,64 @@ window.mulaiKirimLokasi = function () {
                     {
                         latitude: latitude,
                         longitude: longitude,
-                        updatedAt: new Date()
+                        updatedAt: new Date().toISOString()
                     }
                 );
 
-
-                document.getElementById("status").textContent =
+                status.textContent =
                     "Status: Lokasi berhasil dikirim ✓";
-
 
             } catch (error) {
 
-                console.error(error);
+                console.error(
+                    "Gagal mengirim lokasi:",
+                    error
+                );
 
-                document.getElementById("status").textContent =
-                    "Gagal mengirim lokasi.";
+                status.textContent =
+                    "Status: Gagal mengirim lokasi.";
+
+                alert(
+                    "Gagal mengirim lokasi ke Firebase."
+                );
             }
 
         },
 
         function (error) {
 
-            console.error(error);
-
-            document.getElementById("status").textContent =
-                "Gagal mendapatkan lokasi GPS.";
-
-            alert(
-                "Pastikan izin lokasi/GPS sudah diaktifkan."
+            console.error(
+                "GPS Error:",
+                error
             );
+
+            status.textContent =
+                "Status: Gagal mendapatkan lokasi GPS.";
+
+            if (error.code === 1) {
+                alert(
+                    "Izin lokasi ditolak. Silakan izinkan akses lokasi pada browser."
+                );
+            }
+
+            else if (error.code === 2) {
+                alert(
+                    "Lokasi tidak tersedia. Pastikan GPS aktif."
+                );
+            }
+
+            else if (error.code === 3) {
+                alert(
+                    "Waktu mendapatkan lokasi habis. Coba lagi."
+                );
+            }
 
         },
 
         {
             enableHighAccuracy: true,
             maximumAge: 5000,
-            timeout: 10000
+            timeout: 15000
         }
 
     );
@@ -219,11 +240,11 @@ window.berhentiKirimLokasi = function () {
         watchID = null;
     }
 
-
     document.getElementById("status").textContent =
         "Status: Pengiriman lokasi dihentikan.";
 
 };
+
 
 </script>
 
