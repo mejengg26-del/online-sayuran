@@ -358,20 +358,15 @@
                         <tr>
 
                             <th>No</th>
-
-                            <th>Nama Pelanggan</th>
-
-                            <th>No. HP</th>
-
-                            <th>Alamat</th>
-
-                            <th>Pesanan</th>
-
-                            <th>Total</th>
-
-                            <th>Pembayaran</th>
-
-                            <th>Status</th>
+<th>Nama Pelanggan</th>
+<th>No. HP</th>
+<th>Alamat</th>
+<th>Pesanan</th>
+<th>Total</th>
+<th>Pembayaran</th>
+<th>Status</th>
+<th>Kurir</th>
+<th>Aksi</th>
 
                         </tr>
 
@@ -382,7 +377,7 @@
 
                         <tr>
 
-                            <td colspan="8">
+                            <td colspan="10">
                                 Memuat pesanan...
                             </td>
 
@@ -425,9 +420,11 @@
     <script type="module">
 
         import {
-            collection,
-            onSnapshot
-        } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+    collection,
+    onSnapshot,
+    updateDoc,
+    doc
+} from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 
 
         import {
@@ -482,7 +479,7 @@
 
                         <tr>
 
-                            <td colspan="8">
+                            <td colspan="10">
                                 Belum ada pesanan.
                             </td>
 
@@ -614,7 +611,31 @@
                                 </span>
 
                             </td>
+                        <td>
+    ${data.kurir || "Belum diambil"}
+</td>
 
+<td>
+    ${
+        data.status === "Menunggu"
+        ? `
+            <button
+                onclick="ambilPesanan('${doc.id}')"
+                style="
+                    background:#2e7d32;
+                    color:white;
+                    border:none;
+                    padding:8px 12px;
+                    border-radius:6px;
+                    cursor:pointer;
+                "
+            >
+                Ambil Pesanan
+            </button>
+          `
+        : "-"
+    }
+</td>
                         </tr>
 
                     `;
@@ -653,7 +674,7 @@
 
                     <tr>
 
-                        <td colspan="8">
+                        <td colspan="10">
 
                             Gagal memuat pesanan.
 
@@ -666,7 +687,41 @@
             }
 
         );
+window.ambilPesanan = async function(idPesanan) {
 
+    const namaKurir = prompt(
+        "Masukkan nama kurir yang mengambil pesanan:"
+    );
+
+    if (!namaKurir || namaKurir.trim() === "") {
+        return;
+    }
+
+    try {
+
+        await updateDoc(
+            doc(db, "pesanan", idPesanan),
+            {
+                kurir: namaKurir.trim(),
+                status: "Diproses"
+            }
+        );
+
+        alert(
+            "Pesanan berhasil diambil oleh " +
+            namaKurir.trim()
+        );
+
+    } catch (error) {
+
+        console.error(
+            "Gagal mengambil pesanan:",
+            error
+        );
+
+        alert("Gagal menyimpan data kurir.");
+    }
+};
     </script>
 
 </body>
