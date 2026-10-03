@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Lokasi Kurir - Tukang Sayur Online</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5fff5;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background: #2e7d32;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 30px auto;
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            color: #2e7d32;
+            text-align: center;
+        }
+
+        p {
+            text-align: center;
+            color: #555;
+        }
+
+        button {
+            width: 100%;
+            padding: 13px;
+            border: none;
+            border-radius: 8px;
+            background: #2e7d32;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+
+        button:hover {
+            background: #256628;
+        }
+
+        #status {
+            margin-top: 20px;
+            padding: 12px;
+            background: #f1f8e9;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        #lokasi {
+            margin-top: 15px;
+            text-align: center;
+            color: #555;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>🚚 Tukang Sayur Online</h1>
+    <p style="color:white;">Pelacakan Lokasi Kurir</p>
+</header>
+
+<div class="container">
+
+    <h2>📍 Lokasi Kurir</h2>
+
+    <p>
+        Tekan tombol di bawah untuk mengirim
+        lokasi kurir kepada pelanggan.
+    </p>
+
+    <button onclick="mulaiKirimLokasi()">
+        Mulai Kirim Lokasi
+    </button>
+
+    <button onclick="berhentiKirimLokasi()"
+            style="background:#c62828;">
+        Berhenti Kirim Lokasi
+    </button>
+
+    <div id="status">
+        Status: Belum mengirim lokasi
+    </div>
+
+    <div id="lokasi">
+        Lokasi belum tersedia
+    </div>
+
+</div>
+
+
+<script type="module">
+
+import { db } from "./firebase.js";
+
+import {
+    doc,
+    setDoc
+} from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+
+
+let watchID = null;
+
+
+/* =====================================
+   MULAI KIRIM LOKASI
+===================================== */
+
+window.mulaiKirimLokasi = function () {
+
+    if (!navigator.geolocation) {
+
+        alert("Browser tidak mendukung GPS.");
+
+        return;
+    }
+
+
+    document.getElementById("status").textContent =
+        "Status: Sedang mengirim lokasi...";
+
+
+    watchID = navigator.geolocation.watchPosition(
+
+        async function (position) {
+
+            const latitude =
+                position.coords.latitude;
+
+            const longitude =
+                position.coords.longitude;
+
+
+            document.getElementById("lokasi").innerHTML = `
+                Latitude: ${latitude}<br>
+                Longitude: ${longitude}
+            `;
+
+
+            try {
+
+                await setDoc(
+                    doc(db, "lokasiKurir", "kurir1"),
+                    {
+                        latitude: latitude,
+                        longitude: longitude,
+                        updatedAt: new Date()
+                    }
+                );
+
+
+                document.getElementById("status").textContent =
+                    "Status: Lokasi berhasil dikirim ✓";
+
+
+            } catch (error) {
+
+                console.error(error);
+
+                document.getElementById("status").textContent =
+                    "Gagal mengirim lokasi.";
+            }
+
+        },
+
+        function (error) {
+
+            console.error(error);
+
+            document.getElementById("status").textContent =
+                "Gagal mendapatkan lokasi GPS.";
+
+            alert(
+                "Pastikan izin lokasi/GPS sudah diaktifkan."
+            );
+
+        },
+
+        {
+            enableHighAccuracy: true,
+            maximumAge: 5000,
+            timeout: 10000
+        }
+
+    );
+
+};
+
+
+/* =====================================
+   BERHENTI KIRIM LOKASI
+===================================== */
+
+window.berhentiKirimLokasi = function () {
+
+    if (watchID !== null) {
+
+        navigator.geolocation.clearWatch(watchID);
+
+        watchID = null;
+    }
+
+
+    document.getElementById("status").textContent =
+        "Status: Pengiriman lokasi dihentikan.";
+
+};
+
+</script>
+
+</body>
+</html>
