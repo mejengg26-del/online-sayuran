@@ -315,28 +315,17 @@ tombolPesan.addEventListener("click", async function() {
             "Menyimpan Pesanan...";
 
 
-        const pesananRef = await addDoc(
-            collection(db, "pesanan"),
-            {
-
-                namaPelanggan: nama,
-
-                nomorHP: hp,
-
-                alamat: alamat,
-
-                metodePembayaran: pembayaran,
-
-                pesanan: keranjang,
-
-                total: total,
-
-                status: "Menunggu",
-
-                tanggal:
-                    new Date().toISOString()
-
-            }
+        const pesananRef = await addDoc(collection(db, "pesanan"), {
+    namaPelanggan: nama,
+    nomorHP: hp,
+    alamat: alamat,
+    metodePembayaran: pembayaran,
+    pesanan: keranjang,
+    total: total,
+    status: "Menunggu",
+    kurir: "Belum diambil",
+    tanggal: new Date().toISOString()
+}
         );
 
 
