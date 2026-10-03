@@ -44,11 +44,9 @@
         <h3>MENU CEO</h3>
 
         <a href="#dashboard">Dashboard</a>
-
+        <a href="#stok">Data Stok</a>
         <a href="#pesanan">Data Pesanan</a>
-
         <a href="#produk">Produk Terlaris</a>
-
         <a href="#pendapatan">Pendapatan</a>
 
     </aside>
@@ -117,38 +115,83 @@
             </div>
 
         </section>
+<!-- ================= DATA STOK ================= -->
 
+<section id="stok">
+
+    <h2>Data Stok Sayuran</h2>
+
+    <div class="table-container">
+
+        <table>
+
+            <thead>
+
+                <tr>
+                    <th>No</th>
+                    <th>Nama Produk</th>
+                    <th>Stok Tersisa</th>
+                    <th>Status</th>
+                </tr>
+
+            </thead>
+
+            <tbody id="tabelStok">
+
+                <tr>
+                    <td colspan="4">
+                        Memuat data stok...
+                    </td>
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</section>
 
         <!-- ================= STATUS PESANAN ================= -->
+<section>
 
-        <section>
+    <h2>Status Pesanan</h2>
 
-            <h2>Status Pesanan</h2>
+    <div class="status-box">
 
-            <div class="status-box">
+        <div>
+            <span class="dot menunggu"></span>
+            Menunggu
+            <strong id="jumlahMenunggu">0</strong>
+        </div>
 
-                <div>
-                    <span class="dot menunggu"></span>
-                    Menunggu
-                    <strong id="jumlahMenunggu">0</strong>
-                </div>
+        <div>
+            <span class="dot diproses"></span>
+            Diproses
+            <strong id="jumlahDiproses">0</strong>
+        </div>
 
-                <div>
-                    <span class="dot selesai"></span>
-                    Selesai
-                    <strong id="jumlahSelesai">0</strong>
-                </div>
+        <div>
+            <span class="dot diantar"></span>
+            Pesanan Diantar
+            <strong id="jumlahDiantar">0</strong>
+        </div>
 
-                <div>
-                    <span class="dot dibatalkan"></span>
-                    Dibatalkan
-                    <strong id="jumlahDibatalkan">0</strong>
-                </div>
+        <div>
+            <span class="dot selesai"></span>
+            Selesai
+            <strong id="jumlahSelesai">0</strong>
+        </div>
 
-            </div>
+        <div>
+            <span class="dot dibatalkan"></span>
+            Dibatalkan
+            <strong id="jumlahDibatalkan">0</strong>
+        </div>
 
-        </section>
+    </div>
 
+</section>
 
         <!-- ================= PRODUK TERLARIS ================= -->
 
@@ -297,30 +340,35 @@ async function tampilkanDataCEO() {
         const total = pesanan.length;
 
         const menunggu = pesanan.filter(
-            item => item.status === "Menunggu"
-        ).length;
+    item => item.status === "Menunggu"
+).length;
 
-        const selesai = pesanan.filter(
-            item => item.status === "Selesai"
-        ).length;
+const diproses = pesanan.filter(
+    item => item.status === "Diproses"
+).length;
 
-        const dibatalkan = pesanan.filter(
-            item => item.status === "Dibatalkan"
-        ).length;
+const diantar = pesanan.filter(
+    item => item.status === "Pesanan Diantar"
+).length;
 
+const selesai = pesanan.filter(
+    item => item.status === "Selesai"
+).length;
 
-        document.getElementById("totalPesanan").textContent = total;
+const dibatalkan = pesanan.filter(
+    item => item.status === "Dibatalkan"
+).length;
 
-        document.getElementById("pesananMenunggu").textContent = menunggu;
-
-        document.getElementById("pesananSelesai").textContent = selesai;
 
         document.getElementById("jumlahMenunggu").textContent = menunggu;
 
-        document.getElementById("jumlahSelesai").textContent = selesai;
+document.getElementById("jumlahDiproses").textContent = diproses;
 
-        document.getElementById("jumlahDibatalkan").textContent = dibatalkan;
+document.getElementById("jumlahDiantar").textContent = diantar;
 
+document.getElementById("jumlahSelesai").textContent = selesai;
+
+document.getElementById("jumlahDibatalkan").textContent = dibatalkan;
 
         /* =====================================
            HITUNG PENDAPATAN
