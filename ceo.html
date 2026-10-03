@@ -337,6 +337,7 @@ async function tampilkanDataCEO() {
            STATISTIK
         ===================================== */
 
+
         const total = pesanan.length;
 
         const menunggu = pesanan.filter(
@@ -367,7 +368,6 @@ document.getElementById("jumlahDiproses").textContent = diproses;
 document.getElementById("jumlahDiantar").textContent = diantar;
 
 document.getElementById("jumlahSelesai").textContent = selesai;
-
 document.getElementById("jumlahDibatalkan").textContent = dibatalkan;
 
         /* =====================================
@@ -588,8 +588,87 @@ document.getElementById("jumlahDibatalkan").textContent = dibatalkan;
 
 
 /* Jalankan */
+/* =====================================
+   DATA STOK
+===================================== */
 
-tampilkanDataCEO();
+function tampilkanDataStok() {
+
+    const tabelStok =
+        document.getElementById("tabelStok");
+
+    const stok =
+        JSON.parse(
+            localStorage.getItem("stok")
+        ) || {};
+
+    tabelStok.innerHTML = "";
+
+    const daftarStok = Object.entries(stok);
+
+    if (daftarStok.length === 0) {
+
+        tabelStok.innerHTML = `
+            <tr>
+                <td colspan="4">
+                    Belum ada data stok.
+                </td>
+            </tr>
+        `;
+
+        return;
+    }
+
+    daftarStok.forEach((item, index) => {
+
+        const namaProduk = item[0];
+        const jumlahStok = Number(item[1]);
+
+        let status = "";
+
+        if (jumlahStok === 0) {
+
+            status = "Habis";
+
+        } else if (jumlahStok <= 5) {
+
+            status = "Stok Menipis";
+
+        } else {
+
+            status = "Tersedia";
+
+        }
+
+        tabelStok.innerHTML += `
+
+            <tr>
+
+                <td>
+                    ${index + 1}
+                </td>
+
+                <td>
+                    ${namaProduk}
+                </td>
+
+                <td>
+                    ${jumlahStok}
+                </td>
+
+                <td>
+                    ${status}
+                </td>
+
+            </tr>
+
+        `;
+
+    });
+
+}
+
+tampilkanDataStok();
 
 
 /* =====================================
