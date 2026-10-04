@@ -360,7 +360,11 @@ const dibatalkan = pesanan.filter(
     item => item.status === "Dibatalkan"
 ).length;
 
+document.getElementById("totalPesanan").textContent = total;
 
+document.getElementById("pesananMenunggu").textContent = menunggu;
+
+document.getElementById("pesananSelesai").textContent = selesai;
         document.getElementById("jumlahMenunggu").textContent = menunggu;
 
 document.getElementById("jumlahDiproses").textContent = diproses;
@@ -669,13 +673,6 @@ function tampilkanDataStok() {
 }
 tampilkanDataStok();
 tampilkanDataCEO();
-
-
-/* =====================================
-   LOGOUT
-===================================== */
-
-
 /* =====================================
    LOGOUT
 ===================================== */
